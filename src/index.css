@@ -1,0 +1,352 @@
+/* MR FOODS – DESIGN SYSTEM & GLOBAL STYLES */
+
+:root {
+  /* Brand Palette */
+  --color-burgundy: #581D27;
+  --color-burgundy-dark: #3F131A;
+  --color-burgundy-light: #722734;
+  --color-dark-brown: #38251D;
+  --color-cream: #F7F0E5;
+  --color-cream-light: #FDFBF7;
+  --color-antique-gold: #B69A62;
+  --color-gold-light: #D4B982;
+  --color-gold-dim: rgba(182, 154, 98, 0.25);
+  --color-coconut-beige: #E8DCC8;
+  --color-text-main: #2D211B;
+  --color-text-muted: #6B5B53;
+  --color-text-light: #8E7D75;
+  --color-border: #E5DACB;
+  --color-border-subtle: rgba(182, 154, 98, 0.2);
+
+  /* Typography */
+  --font-display: 'Cinzel', 'Cormorant Garamond', serif;
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout & Transitions */
+  --max-width: 1240px;
+  --max-width-narrow: 860px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease-in-out;
+  --shadow-subtle: 0 4px 20px -2px rgba(56, 37, 29, 0.06);
+  --shadow-card: 0 10px 30px -5px rgba(56, 37, 29, 0.08), 0 0 1px 1px rgba(182, 154, 98, 0.15);
+  --shadow-elevated: 0 20px 40px -10px rgba(88, 29, 39, 0.15);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--color-cream);
+  color: var(--color-text-main);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-text-main);
+  line-height: 1.65;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
+
+/* Headings & Editorial Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-burgundy);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* Common Container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--max-width-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Section Wrapper Base */
+.section-padding {
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* Section Header Styles */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--color-antique-gold);
+  margin-bottom: 0.85rem;
+}
+
+.section-badge::before,
+.section-badge::after {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background-color: var(--color-antique-gold);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: var(--color-burgundy);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 2.85rem;
+  }
+}
+
+.section-description {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-burgundy {
+  color: var(--color-burgundy);
+}
+
+.text-gold {
+  color: var(--color-antique-gold);
+}
+
+.text-cream {
+  color: var(--color-cream);
+}
+
+.bg-burgundy {
+  background-color: var(--color-burgundy);
+  color: var(--color-cream);
+}
+
+.bg-cream {
+  background-color: var(--color-cream);
+}
+
+.bg-cream-light {
+  background-color: var(--color-cream-light);
+}
+
+.bg-coconut {
+  background-color: var(--color-coconut-beige);
+}
+
+/* Kasavu / Heritage Gold Trim Accent */
+.kasavu-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.5rem auto;
+  width: 100%;
+  max-width: 240px;
+}
+
+.kasavu-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-antique-gold), transparent);
+}
+
+.kasavu-lotus {
+  width: 18px;
+  height: 18px;
+  color: var(--color-antique-gold);
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--color-burgundy);
+  color: var(--color-cream);
+  border: 1px solid var(--color-burgundy);
+  box-shadow: 0 4px 15px rgba(88, 29, 39, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-burgundy-dark);
+  border-color: var(--color-antique-gold);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88, 29, 39, 0.3);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-burgundy);
+  border: 1px solid var(--color-burgundy);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-burgundy);
+  color: var(--color-cream);
+  transform: translateY(-2px);
+}
+
+.btn-gold {
+  background-color: var(--color-antique-gold);
+  color: var(--color-burgundy-dark);
+  border: 1px solid var(--color-antique-gold);
+  font-weight: 700;
+}
+
+.btn-gold:hover {
+  background-color: var(--color-gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background-color: #128C7E;
+  color: #ffffff;
+  border: 1px solid #075E54;
+  box-shadow: 0 4px 15px rgba(18, 140, 126, 0.25);
+}
+
+.btn-whatsapp:hover {
+  background-color: #075E54;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(18, 140, 126, 0.35);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Accessibility & Reduced Motion */
+:focus-visible {
+  outline: 2px solid var(--color-antique-gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
