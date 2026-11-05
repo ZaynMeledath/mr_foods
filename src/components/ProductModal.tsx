@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { X, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import type { ProductItem } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
 
 interface ProductModalProps {
   product: ProductItem | null;
@@ -16,6 +16,8 @@ export const ProductModal = ({
   onClose,
   onSelectForEnquiry,
 }: ProductModalProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -56,9 +58,9 @@ export const ProductModal = ({
               <motion.button
                 type="button"
                 className="modal-close-btn"
-                whileHover={{ rotate: 90, scale: 1.08 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
+                whileHover={shouldReduceMotion ? undefined : { rotate: 90, scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
+                transition={HOVER_TRANSITION}
                 onClick={onClose}
                 aria-label="Close product details"
               >
@@ -90,7 +92,7 @@ export const ProductModal = ({
                   >
                     <img
                       src="/mr_group_logo.png"
-                      alt="MR Foods"
+                      alt="MR Group Foods"
                       width="26"
                       height="26"
                       style={{ borderRadius: '4px', objectFit: 'contain' }}
@@ -141,12 +143,16 @@ export const ProductModal = ({
                     <motion.button
                       type="button"
                       className="btn btn-primary"
-                      whileHover={{
-                        y: -2,
-                        boxShadow: '0 6px 20px rgba(88, 29, 39, 0.25)',
-                      }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ duration: 0.2 }}
+                      whileHover={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              y: -3,
+                              boxShadow: '0 10px 28px rgba(88, 29, 39, 0.35)',
+                            }
+                      }
+                      whileTap={{ scale: 0.98, y: 0 }}
+                      transition={HOVER_TRANSITION}
                       onClick={() => {
                         onSelectForEnquiry(product.name);
                         onClose();
@@ -186,7 +192,7 @@ export const ProductModal = ({
           max-width: 860px;
           max-height: 90vh;
           overflow-y: auto;
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius-lg);
         }
 
         .modal-close-btn {
@@ -243,6 +249,7 @@ export const ProductModal = ({
           background-color: rgba(88, 29, 39, 0.9);
           color: var(--color-cream);
           padding: 0.35rem 0.85rem;
+          border-radius: var(--radius-xs);
           border: 1px solid var(--color-antique-gold);
           font-family: var(--font-serif);
           font-size: 1.15rem;
@@ -305,7 +312,8 @@ export const ProductModal = ({
           font-size: 0.82rem;
           background-color: var(--color-cream);
           border: 1px solid var(--color-border);
-          padding: 0.3rem 0.65rem;
+          border-radius: var(--radius-full);
+          padding: 0.3rem 0.75rem;
           color: var(--color-text-main);
           font-weight: 500;
         }

@@ -1,14 +1,33 @@
 import type { Variants } from 'motion/react';
+import {
+  LUXURY_EASE,
+  GENTLE_EASE,
+  SOFT_EASE,
+  MOTION_DURATIONS,
+  HOVER_TRANSITION,
+  CARD_HOVER_TRANSITION,
+  TAP_TRANSITION,
+  MICRO_HOVER_TRANSITION,
+  CSS_TIMINGS,
+} from '../config/animations';
 
-// Premium Editorial Motion Constants
-export const LUXURY_EASE = [0.16, 1, 0.3, 1] as const;
-export const GENTLE_EASE = [0.22, 1, 0.36, 1] as const;
-export const SOFT_EASE = [0.4, 0, 0.2, 1] as const;
+export {
+  LUXURY_EASE,
+  GENTLE_EASE,
+  SOFT_EASE,
+  MOTION_DURATIONS,
+  HOVER_TRANSITION,
+  CARD_HOVER_TRANSITION,
+  TAP_TRANSITION,
+  MICRO_HOVER_TRANSITION,
+  CSS_TIMINGS,
+};
 
 // Transition presets
 export const transitions = {
-  micro: { duration: 0.22, ease: LUXURY_EASE },
-  button: { duration: 0.3, ease: LUXURY_EASE },
+  micro: { duration: MOTION_DURATIONS.micro, ease: LUXURY_EASE },
+  button: { duration: MOTION_DURATIONS.hover, ease: LUXURY_EASE },
+  card: { duration: MOTION_DURATIONS.cardHover, ease: LUXURY_EASE },
   text: { duration: 0.75, ease: LUXURY_EASE },
   section: { duration: 0.85, ease: LUXURY_EASE },
   imageReveal: { duration: 1.1, ease: LUXURY_EASE },

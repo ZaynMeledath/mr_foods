@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { LUXURY_EASE } from '../utils/motion';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
 
 interface NavbarProps {
   onOpenEnquiry?: () => void;
 }
 
 export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
+  const shouldReduceMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -63,14 +64,14 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
             >
               <img
                 src="/mr_group_logo.png"
-                alt="MR Foods Logo"
+                alt="MR Group Foods Logo"
                 className="brand-logo-img"
                 width="42"
                 height="42"
               />
             </motion.div>
             <div className="brand-titles">
-              <span className="brand-name">MR FOODS</span>
+              <span className="brand-name">MR GROUP FOODS</span>
               <span className="brand-tagline">KERALA TRADITIONAL SWEETS</span>
             </div>
           </motion.a>
@@ -101,9 +102,9 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
             <motion.button
               type="button"
               className="btn btn-enquire"
-              whileHover={{ y: -2, boxShadow: '0 6px 18px rgba(88, 29, 39, 0.2)' }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ duration: 0.25, ease: LUXURY_EASE }}
+              whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+              whileTap={{ scale: 0.97, y: 0 }}
+              transition={HOVER_TRANSITION}
               onClick={() => {
                 if (onOpenEnquiry) {
                   onOpenEnquiry();
@@ -115,8 +116,8 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
               <span>Enquire Now</span>
               <motion.span
                 className="enquire-arrow"
-                whileHover={{ x: 2, y: -2 }}
-                transition={{ duration: 0.2 }}
+                whileHover={shouldReduceMotion ? undefined : { x: 2, y: -2 }}
+                transition={HOVER_TRANSITION}
               >
                 <ArrowUpRight size={15} />
               </motion.span>
@@ -159,13 +160,13 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
                 <div className="mobile-brand-wrapper">
                   <img
                     src="/mr_group_logo.png"
-                    alt="MR Foods Logo"
+                    alt="MR Group Foods Logo"
                     className="brand-logo-img"
                     width="36"
                     height="36"
                   />
                   <div className="brand-titles">
-                    <span className="brand-name text-burgundy">MR FOODS</span>
+                    <span className="brand-name text-burgundy">MR GROUP FOODS</span>
                     <span className="brand-tagline text-gold">TRADITIONAL KERALA SWEETS</span>
                   </div>
                 </div>
@@ -291,7 +292,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           width: 42px;
           height: 42px;
           object-fit: contain;
-          border-radius: 6px;
+          border-radius: var(--radius-xs);
           display: block;
         }
 
@@ -385,7 +386,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
         .btn-enquire {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.45rem;
           background-color: transparent;
           color: var(--color-burgundy);
           border: 1px solid var(--color-burgundy);
@@ -395,12 +396,16 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           letter-spacing: 0.08em;
           text-transform: uppercase;
           border-radius: var(--radius-sm);
+          transition: var(--transition-button);
+          will-change: transform;
         }
 
         .btn-enquire:hover {
           background-color: var(--color-burgundy);
           color: var(--color-cream);
           border-color: var(--color-burgundy);
+          box-shadow: 0 6px 18px rgba(88, 29, 39, 0.22);
+          transform: none;
         }
 
         .enquire-arrow {
@@ -446,6 +451,8 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           height: 100%;
           background-color: var(--color-cream);
           border-left: 2px solid var(--color-antique-gold);
+          border-top-left-radius: var(--radius-lg);
+          border-bottom-left-radius: var(--radius-lg);
           display: flex;
           flex-direction: column;
           padding: 1.5rem;

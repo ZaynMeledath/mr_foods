@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, CARD_HOVER_TRANSITION } from '../utils/motion';
 
 export const Heritage = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -112,7 +112,7 @@ export const Heritage = () => {
               <motion.div
                 className="milestone-box"
                 whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-gold-light)' }}
-                transition={{ duration: 0.25 }}
+                transition={CARD_HOVER_TRANSITION}
               >
                 <span className="milestone-title">Authentic Vessels</span>
                 <span className="milestone-desc">Traditional cast moulds &amp; heavy brass Urulis</span>
@@ -120,7 +120,7 @@ export const Heritage = () => {
               <motion.div
                 className="milestone-box"
                 whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-gold-light)' }}
-                transition={{ duration: 0.25 }}
+                transition={CARD_HOVER_TRANSITION}
               >
                 <span className="milestone-title">Pure Palm Jaggery</span>
                 <span className="milestone-desc">Rich caramel notes unhampered by additives</span>
@@ -128,7 +128,7 @@ export const Heritage = () => {
               <motion.div
                 className="milestone-box"
                 whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-gold-light)' }}
-                transition={{ duration: 0.25 }}
+                transition={CARD_HOVER_TRANSITION}
               >
                 <span className="milestone-title">Native Bananas</span>
                 <span className="milestone-desc">Naturally sweetened ripe Kerala variety</span>
@@ -150,7 +150,7 @@ export const Heritage = () => {
             >
               <div className="heritage-frame-inner">
                 <img
-                  src="/images/hero-kerala-sweets.jpg"
+                  src="/images/hero-kerala-sweets.webp"
                   alt="Traditional Kerala brass vessel and banana leaf presenting authentic homemade delicacies"
                   className="heritage-main-img"
                   loading="lazy"
@@ -169,7 +169,15 @@ export const Heritage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.8, delay: 0.3, ease: LUXURY_EASE }}
-              whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+              whileHover={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      y: -3,
+                      transition: CARD_HOVER_TRANSITION,
+                    }
+              }
+              whileTap={{ scale: 0.98 }}
             >
               <span className="history-kerala-symbol">കേരള തനിമ</span>
               <h4 className="history-title">Generations of Unbroken Taste</h4>
@@ -323,6 +331,7 @@ export const Heritage = () => {
         .milestone-box {
           background-color: rgba(63, 19, 26, 0.6);
           border: 1px solid rgba(182, 154, 98, 0.25);
+          border-radius: var(--radius-sm);
           padding: 1rem;
           display: flex;
           flex-direction: column;
@@ -352,6 +361,7 @@ export const Heritage = () => {
 
         .heritage-frame-outer {
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-lg);
           padding: 12px;
           background-color: var(--color-burgundy-dark);
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -361,6 +371,7 @@ export const Heritage = () => {
           position: relative;
           overflow: hidden;
           aspect-ratio: 4 / 3.5;
+          border-radius: calc(var(--radius-lg) - 4px);
         }
 
         .heritage-main-img {
@@ -368,6 +379,7 @@ export const Heritage = () => {
           height: 100%;
           object-fit: cover;
           display: block;
+          border-radius: calc(var(--radius-lg) - 4px);
         }
 
         .heritage-img-caption {
@@ -400,6 +412,7 @@ export const Heritage = () => {
           background-color: var(--color-cream);
           color: var(--color-text-main);
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-md);
           padding: 1.5rem;
           margin-top: -30px;
           margin-left: 20px;

@@ -1,9 +1,10 @@
-import { MessageCircle, Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { InstagramIcon } from './InstagramIcon';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { BRAND_INFO } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
 
 interface FooterProps {
   onSelectProduct: (productName: string) => void;
@@ -60,15 +61,15 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
             <div className="footer-brand-header">
               <motion.img
                 src="/mr_group_logo.png"
-                alt="MR Foods Logo"
+                alt="MR Group Foods Logo"
                 className="footer-logo-img"
                 width="48"
                 height="48"
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.06 }}
-                transition={{ duration: 0.25 }}
+                transition={HOVER_TRANSITION}
               />
               <div className="footer-brand-title">
-                <span className="brand-title-main">MR FOODS</span>
+                <span className="brand-title-main">MR GROUP FOODS</span>
                 <span className="brand-title-sub">KERALA TRADITIONAL SWEETS</span>
               </div>
             </div>
@@ -165,18 +166,6 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
                   Ariyunda (അരിയുണ്ട)
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  className="footer-btn-link"
-                  onClick={() => {
-                    scrollTo('#products');
-                    onSelectProduct('Both Unniyappam & Ariyunda');
-                  }}
-                >
-                  Assorted Heritage Box
-                </button>
-              </li>
             </ul>
 
             <div className="footer-social-section">
@@ -187,8 +176,8 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
                 rel="noopener noreferrer"
                 className="footer-social-link"
                 aria-label="Instagram"
-                whileHover={shouldReduceMotion ? undefined : { x: 3 }}
-                transition={{ duration: 0.2 }}
+                whileHover={shouldReduceMotion ? undefined : { x: 4 }}
+                transition={HOVER_TRANSITION}
               >
                 <InstagramIcon size={18} />
                 <span>{BRAND_INFO.instagramHandle}</span>
@@ -222,14 +211,15 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
 
             <div className="footer-wa-action">
               <motion.a
-                href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=Hello%20MR%20Foods,%20I%20would%20like%20to%20enquire%20about%20ordering%20traditional%20sweets.`}
+                href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=Hello%20MR%20Group%20Foods,%20I%20would%20like%20to%20enquire%20about%20ordering%20traditional%20sweets.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp footer-wa-btn"
-                whileHover={{ y: -2, boxShadow: '0 6px 18px rgba(18, 140, 126, 0.35)' }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={shouldReduceMotion ? undefined : { y: -2, boxShadow: '0 8px 22px rgba(18, 140, 126, 0.38)' }}
+                whileTap={{ scale: 0.98, y: 0 }}
+                transition={HOVER_TRANSITION}
               >
-                <MessageCircle size={16} />
+                <WhatsAppIcon size={16} />
                 <span>WhatsApp Order</span>
               </motion.a>
             </div>
@@ -304,7 +294,7 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
           width: 48px;
           height: 48px;
           object-fit: contain;
-          border-radius: 6px;
+          border-radius: var(--radius-xs);
           display: block;
         }
 
@@ -374,7 +364,7 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
           font-family: var(--font-sans);
           font-size: 0.88rem;
           color: rgba(247, 240, 229, 0.8);
-          transition: color 0.25s ease, transform 0.25s ease;
+          transition: color 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
           text-align: left;
           padding: 0;
           background: none;
@@ -410,7 +400,7 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
           gap: 0.5rem;
           font-size: 0.85rem;
           color: var(--color-cream);
-          transition: color 0.25s ease;
+          transition: color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .footer-social-link:hover {
@@ -440,6 +430,12 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
           width: 100%;
           padding: 0.65rem 1rem;
           font-size: 0.82rem;
+          transition: var(--transition-button);
+          will-change: transform;
+        }
+
+        .footer-wa-btn:hover {
+          transform: none;
         }
 
         .footer-divider {

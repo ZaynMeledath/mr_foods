@@ -46,7 +46,7 @@ export function App() {
         {/* 3. Our Signature Products */}
         <Products onSelectForEnquiry={handleSelectProduct} />
 
-        {/* 4. The MR Foods Difference */}
+        {/* 4. The MR Group Foods Difference */}
         <Difference />
 
         {/* 5. Our Heritage Section */}

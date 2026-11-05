@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { CRAFT_STEPS } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
 
 export const Craft = () => {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -48,7 +48,7 @@ export const Craft = () => {
               className={`craft-nav-item ${idx === activeStepIndex ? 'active' : ''}`}
               whileHover={shouldReduceMotion ? undefined : { y: -2 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
+              transition={HOVER_TRANSITION}
               onClick={() => setActiveStepIndex(idx)}
             >
               <span className="craft-nav-num">{step.step}</span>
@@ -108,8 +108,9 @@ export const Craft = () => {
                 <motion.button
                   type="button"
                   className="craft-ctrl-btn"
-                  whileHover={{ x: -2 }}
+                  whileHover={shouldReduceMotion ? undefined : { x: -3 }}
                   whileTap={{ scale: 0.96 }}
+                  transition={HOVER_TRANSITION}
                   onClick={() =>
                     setActiveStepIndex((prev) =>
                       prev > 0 ? prev - 1 : CRAFT_STEPS.length - 1
@@ -126,7 +127,8 @@ export const Craft = () => {
                     <motion.span
                       key={i}
                       className={`craft-dot ${i === activeStepIndex ? 'active' : ''}`}
-                      whileHover={{ scale: 1.25 }}
+                      whileHover={shouldReduceMotion ? undefined : { scale: 1.25 }}
+                      transition={HOVER_TRANSITION}
                       onClick={() => setActiveStepIndex(i)}
                       layout
                     />
@@ -136,8 +138,9 @@ export const Craft = () => {
                 <motion.button
                   type="button"
                   className="craft-ctrl-btn"
-                  whileHover={{ x: 2 }}
+                  whileHover={shouldReduceMotion ? undefined : { x: 3 }}
                   whileTap={{ scale: 0.96 }}
+                  transition={HOVER_TRANSITION}
                   onClick={() =>
                     setActiveStepIndex((prev) =>
                       prev < CRAFT_STEPS.length - 1 ? prev + 1 : 0
@@ -191,7 +194,7 @@ export const Craft = () => {
           padding: 0.75rem 1.25rem;
           background-color: var(--color-cream);
           border: 1px solid var(--color-border);
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius-full);
           white-space: nowrap;
           cursor: pointer;
           transition: border-color 0.25s ease, background-color 0.25s ease;
@@ -234,6 +237,7 @@ export const Craft = () => {
         .craft-display-card {
           background-color: #fff;
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-lg);
           box-shadow: var(--shadow-card);
           overflow: hidden;
         }
@@ -344,6 +348,7 @@ export const Craft = () => {
           padding: 0.5rem 0.75rem;
           background: none;
           border: none;
+          border-radius: var(--radius-sm);
           cursor: pointer;
         }
 

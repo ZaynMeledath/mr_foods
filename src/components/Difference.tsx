@@ -2,7 +2,7 @@ import { Scroll, Users, Sparkles, Heart } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { DIFFERENCE_ITEMS } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION, CARD_HOVER_TRANSITION } from '../utils/motion';
 
 export const Difference = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -33,7 +33,7 @@ export const Difference = () => {
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.8, ease: LUXURY_EASE }}
         >
-          <div className="section-badge">The MR Foods Promise</div>
+          <div className="section-badge">The MR Group Foods Promise</div>
           <h2 className="section-title">
             Rooted in Tradition.
             <span className="diff-title-italic"> Made with Care.</span>
@@ -66,7 +66,7 @@ export const Difference = () => {
                       y: -6,
                       boxShadow: '0 18px 36px -8px rgba(56, 37, 29, 0.12)',
                       borderColor: 'var(--color-antique-gold)',
-                      transition: { duration: 0.35, ease: LUXURY_EASE },
+                      transition: CARD_HOVER_TRANSITION,
                     }
               }
             >
@@ -74,7 +74,7 @@ export const Difference = () => {
               <motion.div
                 className="diff-icon-wrapper"
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
-                transition={{ duration: 0.25 }}
+                transition={HOVER_TRANSITION}
               >
                 {getIcon(item.iconName)}
               </motion.div>
@@ -128,6 +128,7 @@ export const Difference = () => {
           position: relative;
           background-color: var(--color-cream-light);
           border: 1px solid rgba(182, 154, 98, 0.35);
+          border-radius: var(--radius-md);
           padding: 2.25rem 1.75rem;
           display: flex;
           flex-direction: column;

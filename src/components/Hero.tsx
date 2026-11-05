@@ -1,7 +1,7 @@
 import { ArrowDown } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -67,7 +67,7 @@ export const Hero = () => {
             <motion.div variants={itemFadeUp} className="hero-badge">
               <img
                 src="/mr_group_logo.png"
-                alt="MR Foods"
+                alt="MR Group Foods"
                 className="hero-badge-logo"
                 width="20"
                 height="20"
@@ -137,9 +137,9 @@ export const Hero = () => {
               <motion.button
                 type="button"
                 className="btn btn-primary hero-btn-main"
-                whileHover={{ y: -3, boxShadow: '0 8px 24px rgba(88, 29, 39, 0.3)' }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.25, ease: LUXURY_EASE }}
+                whileHover={shouldReduceMotion ? undefined : { y: -3, boxShadow: '0 10px 28px rgba(88, 29, 39, 0.35)' }}
+                whileTap={{ scale: 0.98, y: 0 }}
+                transition={HOVER_TRANSITION}
                 onClick={() => scrollTo('#products')}
               >
                 <span>Explore Our Products</span>
@@ -148,9 +148,9 @@ export const Hero = () => {
               <motion.button
                 type="button"
                 className="btn btn-outline hero-btn-sub"
-                whileHover={{ y: -3, backgroundColor: 'var(--color-burgundy)', color: 'var(--color-cream)' }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.25, ease: LUXURY_EASE }}
+                whileHover={shouldReduceMotion ? undefined : { y: -3, backgroundColor: 'var(--color-burgundy)', color: 'var(--color-cream)' }}
+                whileTap={{ scale: 0.98, y: 0 }}
+                transition={HOVER_TRANSITION}
                 onClick={() => scrollTo('#story')}
               >
                 <span>Our Story</span>
@@ -225,7 +225,7 @@ export const Hero = () => {
               <div className="hero-image-container">
                 {/* Slow, imperceptible image zoom / Ken Burns effect */}
                 <motion.img
-                  src="/images/hero-kerala-sweets.jpg"
+                  src="/images/hero-kerala-sweets.webp"
                   alt="Freshly prepared golden Unniyappam and Ariyunda arranged on traditional Kerala brass Uruli and banana leaf"
                   className="hero-image"
                   width="720"
@@ -286,7 +286,9 @@ export const Hero = () => {
             onClick={() => scrollTo('#story')}
             aria-label="Scroll to Our Story"
             className="scroll-btn"
-            whileHover={{ y: 2 }}
+            whileHover={shouldReduceMotion ? undefined : { y: 3 }}
+            whileTap={{ scale: 0.96 }}
+            transition={HOVER_TRANSITION}
           >
             <span className="scroll-text">DISCOVER OUR STORY</span>
             <ArrowDown size={14} className="scroll-icon" />
@@ -521,6 +523,7 @@ export const Hero = () => {
           padding: 12px;
           background-color: var(--color-cream-light);
           border: 1px solid rgba(182, 154, 98, 0.35);
+          border-radius: var(--radius-lg);
           box-shadow: var(--shadow-card);
         }
 
@@ -536,24 +539,28 @@ export const Hero = () => {
           top: -2px;
           left: -2px;
           border-width: 2px 0 0 2px;
+          border-top-left-radius: var(--radius-lg);
         }
 
         .frame-corner.top-right {
           top: -2px;
           right: -2px;
           border-width: 2px 2px 0 0;
+          border-top-right-radius: var(--radius-lg);
         }
 
         .frame-corner.bottom-left {
           bottom: -2px;
           left: -2px;
           border-width: 0 0 2px 2px;
+          border-bottom-left-radius: var(--radius-lg);
         }
 
         .frame-corner.bottom-right {
           bottom: -2px;
           right: -2px;
           border-width: 0 2px 2px 0;
+          border-bottom-right-radius: var(--radius-lg);
         }
 
         .hero-image-container {
@@ -561,12 +568,14 @@ export const Hero = () => {
           overflow: hidden;
           aspect-ratio: 1 / 1;
           background-color: var(--color-coconut-beige);
+          border-radius: calc(var(--radius-lg) - 4px);
         }
 
         .hero-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          border-radius: calc(var(--radius-lg) - 4px);
         }
 
         .hero-image-overlay {
@@ -574,6 +583,7 @@ export const Hero = () => {
           inset: 0;
           background: linear-gradient(180deg, transparent 65%, rgba(56, 37, 29, 0.3) 100%);
           pointer-events: none;
+          border-radius: calc(var(--radius-lg) - 4px);
         }
 
         .hero-floating-card {
@@ -583,6 +593,7 @@ export const Hero = () => {
           transform: translateX(-50%);
           background-color: var(--color-cream-light);
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-md);
           padding: 0.9rem 1.6rem;
           box-shadow: 0 10px 25px rgba(56, 37, 29, 0.12);
           text-align: center;

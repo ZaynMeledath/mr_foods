@@ -1,7 +1,7 @@
 import { Users, Sparkles } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
 
 export const BrandIntro = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -25,7 +25,7 @@ export const BrandIntro = () => {
                 transition={{ duration: 0.5, ease: LUXURY_EASE }}
               >
                 <img
-                  src="/images/unniyappam-signature.jpg"
+                  src="/images/unniyappam-signature.webp"
                   alt="Authentic Kerala Unniyappam prepared with rice, ripe bananas and jaggery"
                   className="intro-main-image"
                   loading="lazy"
@@ -44,7 +44,7 @@ export const BrandIntro = () => {
                 <div className="inset-quote-icon">
                   <img
                     src="/mr_group_logo.png"
-                    alt="MR Foods"
+                    alt="MR Group Foods"
                     width="32"
                     height="32"
                     style={{ borderRadius: '4px', objectFit: 'contain', display: 'block' }}
@@ -53,7 +53,7 @@ export const BrandIntro = () => {
                 <p className="inset-quote-text">
                   &ldquo;Every sweet prepared in our kitchen honours the warmth of Kerala home kitchens.&rdquo;
                 </p>
-                <span className="inset-signature">— The MR Foods Family</span>
+                <span className="inset-signature">— The MR Group Family</span>
               </motion.div>
             </div>
           </motion.div>
@@ -114,7 +114,7 @@ export const BrandIntro = () => {
               className="intro-paragraphs"
             >
               <p className="intro-lead">
-                At MR Foods, we believe that the most beautiful flavours come from tradition.
+                At MR Group Foods, we believe that the most beautiful flavours come from tradition.
                 Inspired by Kerala&apos;s rich culinary heritage, we bring you beloved homemade
                 delicacies prepared with care, quality ingredients and a genuine love for
                 traditional food.
@@ -144,16 +144,16 @@ export const BrandIntro = () => {
             >
               <motion.div
                 className="intro-feature-pill"
-                whileHover={shouldReduceMotion ? undefined : { y: -2, borderColor: 'var(--color-antique-gold)' }}
-                transition={{ duration: 0.2 }}
+                whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-antique-gold)' }}
+                transition={HOVER_TRANSITION}
               >
                 <Users size={16} className="text-gold" />
                 <span>Family-Owned &amp; Operated</span>
               </motion.div>
               <motion.div
                 className="intro-feature-pill"
-                whileHover={shouldReduceMotion ? undefined : { y: -2, borderColor: 'var(--color-antique-gold)' }}
-                transition={{ duration: 0.2 }}
+                whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-antique-gold)' }}
+                transition={HOVER_TRANSITION}
               >
                 <Sparkles size={16} className="text-gold" />
                 <span>Authentic Culinary Roots</span>
@@ -198,6 +198,7 @@ export const BrandIntro = () => {
         .intro-main-image-wrap {
           position: relative;
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-lg);
           padding: 10px;
           background-color: #fff;
           box-shadow: var(--shadow-card);
@@ -207,6 +208,7 @@ export const BrandIntro = () => {
           width: 100%;
           aspect-ratio: 4 / 4.5;
           object-fit: cover;
+          border-radius: calc(var(--radius-lg) - 4px);
           display: block;
         }
 
@@ -214,6 +216,7 @@ export const BrandIntro = () => {
           position: absolute;
           inset: 6px;
           border: 1px solid rgba(182, 154, 98, 0.4);
+          border-radius: calc(var(--radius-lg) - 2px);
           pointer-events: none;
         }
 
@@ -226,6 +229,7 @@ export const BrandIntro = () => {
           padding: 1.25rem 1.5rem;
           max-width: 290px;
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-md);
           box-shadow: var(--shadow-elevated);
         }
 
@@ -331,6 +335,7 @@ export const BrandIntro = () => {
           gap: 0.55rem;
           background-color: var(--color-cream);
           border: 1px solid rgba(182, 154, 98, 0.35);
+          border-radius: var(--radius-full);
           padding: 0.45rem 1rem;
           font-size: 0.82rem;
           font-weight: 600;

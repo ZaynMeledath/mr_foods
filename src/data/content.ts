@@ -40,17 +40,17 @@ export interface GalleryItem {
 }
 
 export const BRAND_INFO = {
-  name: 'MR Foods',
+  name: 'MR Group Foods',
   logo: '/mr_group_logo.png',
   tagline: 'Tradition, Crafted with Love.',
   subtitle: 'A Little Taste of Kerala, Made with Love.',
-  footerTagline: 'MR Foods – A Tradition Worth Sharing.',
-  whatsappNumber: '919847000000', // Owner-configurable placeholder
-  displayPhone: '+91 98470 XXXXX',
-  displayEmail: 'orders@mrfoods.in',
-  displayAddress: 'Traditional Kitchen, Kerala, India',
-  instagramHandle: '@mrfoods_kerala',
-  instagramUrl: 'https://instagram.com',
+  footerTagline: 'MR Group Foods – A Tradition Worth Sharing.',
+  whatsappNumber: '919400902017', // Owner-configurable placeholder
+  displayPhone: '+91 9400 90 2017',
+  displayEmail: 'mrgroupkannur@gmail.com',
+  displayAddress: 'Payyavoor, Kerala, India',
+  instagramHandle: '@mr_group_foods',
+  instagramUrl: 'https://instagram.com/mr_group_foods',
 };
 
 export const PRODUCTS: ProductItem[] = [
@@ -62,7 +62,7 @@ export const PRODUCTS: ProductItem[] = [
     headline: 'The Little Sweetness of Kerala.',
     description:
       'A beloved Kerala delicacy made with rice, ripe bananas and jaggery, gently infused with cardamom and prepared to achieve its signature golden exterior and soft, flavourful centre.',
-    image: '/images/unniyappam-signature.jpg',
+    image: '/images/unniyappam-signature.webp',
     imageAlt: 'Golden-brown Unniyappam on traditional Kerala brass plate',
     details: {
       highlight: 'Caramelised crust with a tender, aromatic core',
@@ -79,7 +79,7 @@ export const PRODUCTS: ProductItem[] = [
     headline: 'A Taste of Timeless Tradition.',
     description:
       'A traditional Kerala sweet made with roasted rice, jaggery and coconut, carefully shaped into delightful little bites filled with authentic homemade flavour.',
-    image: '/images/ariyunda-signature.jpg',
+    image: '/images/ariyunda-signature.webp',
     imageAlt: 'Authentic roasted rice and coconut Ariyunda sweet bites in rustic presentation',
     details: {
       highlight: 'Wholesome roasted aroma and delicate coconut sweetness',
@@ -124,7 +124,7 @@ export const CRAFT_STEPS: CraftStep[] = [
     subtitle: 'The Foundation of Authentic Taste',
     description:
       'Everything begins with the staples of Kerala’s soil: wholesome rice, sweet ripe native bananas, rich dark jaggery, fresh grated coconut, and fragrant pods of green cardamom.',
-    image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80',
+    image: '/images/ingredients.webp',
     alt: 'Traditional spices, cardamom and wholesome raw culinary ingredients',
   },
   {
@@ -133,7 +133,7 @@ export const CRAFT_STEPS: CraftStep[] = [
     subtitle: 'Slow Infusion & Harmony',
     description:
       'The jaggery is gently melted into a fragrant syrup, then seamlessly combined with rice flour and naturally sweet bananas to form the distinct, flavour-rich batter.',
-    image: 'https://images.unsplash.com/photo-1546548970-71785318a17b?auto=format&fit=crop&w=800&q=80',
+    image: '/images/ariyunda_preparation.webp',
     alt: 'Traditional slow preparation and blending of warm ingredients',
   },
   {
@@ -142,7 +142,7 @@ export const CRAFT_STEPS: CraftStep[] = [
     subtitle: 'Golden Frying to Perfection',
     description:
       'Gently fried until the exterior forms its celebrated caramelised golden-brown crust, protecting a moist, fragrant and sponge-soft centre.',
-    image: '/images/unniyappam-signature.jpg',
+    image: '/images/unniyappam-signature.webp',
     alt: 'Traditional Unniyappam golden frying preparation',
   },
   {
@@ -151,7 +151,7 @@ export const CRAFT_STEPS: CraftStep[] = [
     subtitle: 'Roasted Rice & Handcrafted Care',
     description:
       'Wholesome rice is roasted to an aromatic toasted fragrance, blended while warm with jaggery and coconut, and shaped into delightful, nostalgic bite-sized spheres.',
-    image: '/images/ariyunda-signature.jpg',
+    image: '/images/ariyunda-signature.webp',
     alt: 'Carefully shaping Ariyunda roasted rice and coconut balls',
   },
   {
@@ -160,7 +160,7 @@ export const CRAFT_STEPS: CraftStep[] = [
     subtitle: 'Served with Pride and Warmth',
     description:
       'Plated on fresh banana leaves or arranged for family gatherings, every bite carries the timeless warmth of home and genuine Kerala hospitality.',
-    image: '/images/hero-kerala-sweets.jpg',
+    image: '/images/hero-kerala-sweets.webp',
     alt: 'Finished Unniyappam and Ariyunda arranged on banana leaf and brass vessel',
   },
 ];
@@ -170,50 +170,50 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'g1',
     title: 'Unniyappam Platter',
     category: 'delicacies',
-    image: '/images/unniyappam-signature.jpg',
+    image: '/images/unniyappam-signature.webp',
     caption: 'Golden-brown Unniyappam with caramelised crust and cardamom aroma.',
   },
   {
     id: 'g2',
-    title: 'Ariyunda Sphere Bites',
+    title: 'Ariyunda Platter',
     category: 'delicacies',
-    image: '/images/ariyunda-signature.jpg',
-    caption: 'Hand-rolled roasted rice and coconut Ariyunda in a rustic wooden bowl.',
+    image: '/images/ariyunda-platter.webp',
+    caption: 'Hand-rolled roasted rice and coconut Ariyunda arranged on an authentic platter.',
   },
   {
     id: 'g3',
     title: 'Heritage Uruli Presentation',
     category: 'heritage',
-    image: '/images/hero-kerala-sweets.jpg',
+    image: '/images/hero-kerala-sweets.webp',
     caption: 'Traditional brass vessel presentation lined with fresh banana leaf.',
   },
   {
     id: 'g4',
     title: 'Pure Dark Jaggery & Rice',
     category: 'ingredients',
-    image: 'https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=800&q=80',
+    image: '/images/jaggery_cubes.webp',
     caption: 'Unrefined natural jaggery providing authentic caramel depth.',
   },
   {
     id: 'g5',
     title: 'Crushed Cardamom & Coconut',
     category: 'ingredients',
-    image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=800&q=80',
+    image: '/images/ingredients.webp',
     caption: 'Green cardamom pods and freshly grated coconut for signature fragrance.',
   },
   {
     id: 'g6',
-    title: 'Artisanal Gift & Keepsake Packaging',
+    title: 'Our Signature Packaging',
     category: 'delicacies',
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80',
-    caption: 'Thoughtfully packaged with understated elegance for celebrations.',
+    image: '/images/packaging.webp',
+    caption: 'Carefully sealed to preserve homemade freshness, texture, and authentic aroma.',
   },
   {
     id: 'g7',
     title: 'Kerala Kitchen Heritage',
     category: 'heritage',
-    image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80',
-    caption: 'Timeless warmth, brass vessels, and warm family culinary memories.',
+    image: '/images/kerala-kitchen-hearth.webp',
+    caption: 'Timeless warmth, traditional hearth, and warm family culinary memories.',
   },
   {
     id: 'g8',

@@ -1,11 +1,12 @@
-import { MessageCircle } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { BRAND_INFO } from '../data/content';
+import { HOVER_TRANSITION } from '../utils/motion';
 
 export const WhatsAppButton = () => {
   const shouldReduceMotion = useReducedMotion();
   const message = encodeURIComponent(
-    'Hello MR Foods! I would like to enquire about ordering traditional Kerala sweets.'
+    'Hello MR Group Foods! I would like to enquire about ordering traditional Kerala sweets.'
   );
   const waUrl = `https://wa.me/${BRAND_INFO.whatsappNumber}?text=${message}`;
 
@@ -16,7 +17,7 @@ export const WhatsAppButton = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="wa-floating-btn"
-        aria-label="Chat with MR Foods on WhatsApp"
+        aria-label="Chat with MR Group Foods on WhatsApp"
         title="Direct WhatsApp Enquiry"
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{
@@ -34,13 +35,19 @@ export const WhatsAppButton = () => {
             delay: 2,
           },
         }}
-        whileHover={{
-          scale: 1.05,
-          boxShadow: '0 14px 32px rgba(37, 211, 102, 0.55)',
-        }}
-        whileTap={{ scale: 0.96 }}
+        whileHover={
+          shouldReduceMotion
+            ? undefined
+            : {
+                scale: 1.05,
+                y: -3,
+                boxShadow: '0 14px 32px rgba(37, 211, 102, 0.55)',
+                transition: HOVER_TRANSITION,
+              }
+        }
+        whileTap={{ scale: 0.96, y: 0 }}
       >
-        <MessageCircle size={26} className="wa-icon" />
+        <WhatsAppIcon size={26} className="wa-icon" />
         <span className="wa-label">Enquire on WhatsApp</span>
       </motion.a>
 

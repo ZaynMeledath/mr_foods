@@ -5,7 +5,7 @@ import { PRODUCTS } from '../data/content';
 import type { ProductItem } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
 import { ProductModal } from './ProductModal';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION, CARD_HOVER_TRANSITION } from '../utils/motion';
 
 interface ProductsProps {
   onSelectForEnquiry: (productName: string) => void;
@@ -58,7 +58,7 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
                   : {
                       y: -8,
                       boxShadow: '0 24px 48px -12px rgba(56, 37, 29, 0.16)',
-                      transition: { duration: 0.4, ease: LUXURY_EASE },
+                      transition: CARD_HOVER_TRANSITION,
                     }
               }
             >
@@ -141,8 +141,8 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
                     className="discover-link"
                     onClick={() => setSelectedProduct(prod)}
                     aria-label={`Discover more about ${prod.name}`}
-                    whileHover={{ x: 2 }}
-                    transition={{ duration: 0.2 }}
+                    whileHover={shouldReduceMotion ? undefined : { x: 2 }}
+                    transition={HOVER_TRANSITION}
                   >
                     <span className="discover-link-text">
                       Discover More
@@ -150,8 +150,8 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
                     </span>
                     <motion.span
                       className="link-arrow"
-                      whileHover={{ x: 4 }}
-                      transition={{ duration: 0.2 }}
+                      whileHover={shouldReduceMotion ? undefined : { x: 4 }}
+                      transition={HOVER_TRANSITION}
                     >
                       <ArrowRight size={15} />
                     </motion.span>
@@ -160,13 +160,18 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
                   <motion.button
                     type="button"
                     className="btn-card-order"
-                    whileHover={{
-                      scale: 1.02,
-                      backgroundColor: 'var(--color-burgundy)',
-                      color: 'var(--color-cream)',
-                    }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{ duration: 0.2 }}
+                    whileHover={
+                      shouldReduceMotion
+                        ? undefined
+                        : {
+                            y: -2,
+                            backgroundColor: 'var(--color-burgundy)',
+                            color: 'var(--color-cream)',
+                            boxShadow: '0 6px 18px rgba(88, 29, 39, 0.25)',
+                          }
+                    }
+                    whileTap={{ scale: 0.97, y: 0 }}
+                    transition={HOVER_TRANSITION}
                     onClick={() => onSelectForEnquiry(prod.name)}
                   >
                     Enquire to Order
@@ -222,6 +227,7 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
         .product-card {
           background-color: var(--color-cream-light);
           border: 1px solid var(--color-border);
+          border-radius: var(--radius-lg);
           box-shadow: var(--shadow-card);
           display: flex;
           flex-direction: column;
@@ -276,6 +282,7 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           color: var(--color-cream);
           padding: 0.3rem 0.75rem;
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-xs);
         }
 
         .badge-malayalam {
@@ -328,6 +335,7 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
         .product-ingredients-bar {
           background-color: var(--color-cream);
           border: 1px dashed rgba(182, 154, 98, 0.4);
+          border-radius: var(--radius-sm);
           padding: 0.65rem 0.95rem;
           font-size: 0.8rem;
           margin-bottom: 1.75rem;
@@ -413,6 +421,8 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           text-transform: uppercase;
           border-radius: var(--radius-sm);
           cursor: pointer;
+          transition: var(--transition-button);
+          will-change: transform;
         }
       `}</style>
     </section>

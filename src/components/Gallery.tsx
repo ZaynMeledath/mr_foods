@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { GALLERY_ITEMS } from '../data/content';
 import type { GalleryItem } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, HOVER_TRANSITION, CARD_HOVER_TRANSITION } from '../utils/motion';
 
 export const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'delicacies' | 'ingredients' | 'heritage'>('all');
@@ -29,7 +29,7 @@ export const Gallery = () => {
         >
           <div className="section-badge">Moments &amp; Textures</div>
           <h2 className="section-title">
-            The MR Foods
+            The MR Group Foods
             <span className="gallery-title-italic"> Visual Gallery</span>
           </h2>
           <OrnamentalDivider size="md" />
@@ -54,7 +54,7 @@ export const Gallery = () => {
                 className={`filter-btn ${activeFilter === tab.id ? 'active' : ''}`}
                 whileHover={shouldReduceMotion ? undefined : { y: -2 }}
                 whileTap={{ scale: 0.97 }}
-                transition={{ duration: 0.2 }}
+                transition={HOVER_TRANSITION}
                 onClick={() => setActiveFilter(tab.id)}
               >
                 {tab.label}
@@ -90,7 +90,14 @@ export const Gallery = () => {
                   delay: shouldReduceMotion ? 0 : Math.min(index * 0.04, 0.16),
                   ease: LUXURY_EASE,
                 }}
-                whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+                whileHover={
+                  shouldReduceMotion
+                    ? undefined
+                    : {
+                        y: -5,
+                        transition: CARD_HOVER_TRANSITION,
+                      }
+                }
                 onClick={() => setActiveLightboxItem(item)}
               >
                 <div className="gallery-card-inner">
@@ -140,9 +147,9 @@ export const Gallery = () => {
               <motion.button
                 type="button"
                 className="lightbox-close-btn"
-                whileHover={{ rotate: 90, scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ rotate: 90, scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
+                transition={HOVER_TRANSITION}
                 onClick={() => setActiveLightboxItem(null)}
                 aria-label="Close photo preview"
               >
@@ -201,9 +208,10 @@ export const Gallery = () => {
           background-color: var(--color-cream-light);
           color: var(--color-text-muted);
           border: 1px solid var(--color-border);
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius-full);
           cursor: pointer;
-          transition: all 0.25s ease;
+          transition: var(--transition-button);
+          will-change: transform;
         }
 
         .filter-btn:hover {
@@ -247,6 +255,7 @@ export const Gallery = () => {
           aspect-ratio: 1 / 1;
           background-color: var(--color-coconut-beige);
           border: 1px solid rgba(182, 154, 98, 0.25);
+          border-radius: var(--radius-md);
           box-shadow: var(--shadow-subtle);
         }
 
@@ -322,6 +331,7 @@ export const Gallery = () => {
           width: 100%;
           background-color: var(--color-cream-light);
           border: 1px solid var(--color-antique-gold);
+          border-radius: var(--radius-lg);
           box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
           overflow: hidden;
         }
