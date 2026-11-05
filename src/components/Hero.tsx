@@ -459,6 +459,12 @@ export const Hero = () => {
           margin: 0 auto;
         }
 
+        @media (max-width: 480px) {
+          .hero-pillars {
+            gap: 0.85rem;
+          }
+        }
+
         @media (min-width: 992px) {
           .hero-pillars {
             justify-content: flex-start;
@@ -580,8 +586,10 @@ export const Hero = () => {
         .hero-floating-card {
           position: absolute;
           bottom: -20px;
-          left: 50%;
-          transform: translateX(-50%);
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
           background-color: var(--color-cream-light);
           border: 1px solid var(--color-antique-gold);
           border-radius: var(--radius-md);
@@ -595,7 +603,9 @@ export const Hero = () => {
         @media (min-width: 576px) {
           .hero-floating-card {
             left: 20px;
-            transform: none;
+            right: auto;
+            margin-left: 0;
+            margin-right: 0;
           }
         }
 

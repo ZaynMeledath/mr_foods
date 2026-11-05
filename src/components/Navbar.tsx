@@ -444,6 +444,12 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           transition-duration: var(--transition-duration-tap);
         }
 
+        @media (max-width: 520px) {
+          .btn-enquire {
+            display: none;
+          }
+        }
+
         @media (min-width: 992px) {
           .mobile-menu-btn {
             display: none;

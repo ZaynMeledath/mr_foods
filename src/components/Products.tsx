@@ -251,28 +251,75 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          gap: 0.75rem;
           pointer-events: none;
+          z-index: 2;
         }
 
         .badge-tag {
           font-family: var(--font-sans);
-          font-size: 0.7rem;
+          font-size: 0.68rem;
           font-weight: 700;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.06em;
+          line-height: 1.2;
           text-transform: uppercase;
           background-color: var(--color-burgundy);
           color: var(--color-cream);
-          padding: 0.3rem 0.75rem;
+          padding: 0.22rem 0.55rem;
           border: 1px solid var(--color-antique-gold);
           border-radius: var(--radius-xs);
+          display: inline-flex;
+          align-items: center;
+          white-space: nowrap;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         .badge-malayalam {
           font-family: var(--font-serif);
           font-size: 1.15rem;
+          line-height: 1;
           color: var(--color-cream);
           text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
           font-weight: 600;
+          flex-shrink: 0;
+        }
+
+        @media (max-width: 640px) {
+          .product-badge-overlay {
+            top: 0.75rem;
+            left: 0.75rem;
+            right: 0.75rem;
+            gap: 0.5rem;
+          }
+
+          .badge-tag {
+            font-size: 0.62rem;
+            letter-spacing: 0.04em;
+            padding: 0.18rem 0.42rem;
+          }
+
+          .badge-malayalam {
+            font-size: 1.02rem;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .product-badge-overlay {
+            top: 0.6rem;
+            left: 0.6rem;
+            right: 0.6rem;
+            gap: 0.4rem;
+          }
+
+          .badge-tag {
+            font-size: 0.58rem;
+            letter-spacing: 0.03em;
+            padding: 0.16rem 0.36rem;
+          }
+
+          .badge-malayalam {
+            font-size: 0.95rem;
+          }
         }
 
         .product-card-body {

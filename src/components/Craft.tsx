@@ -169,10 +169,16 @@ export const Craft = () => {
           display: flex;
           overflow-x: auto;
           gap: 0.75rem;
-          padding-bottom: 1.25rem;
+          padding: 0.65rem 0.35rem 1.25rem;
           margin-bottom: 2rem;
           scrollbar-width: thin;
           scrollbar-color: var(--color-antique-gold) transparent;
+        }
+
+        @media (min-width: 900px) {
+          .craft-nav-bar {
+            justify-content: center;
+          }
         }
 
         .craft-nav-item {

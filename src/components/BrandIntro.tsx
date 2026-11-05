@@ -263,7 +263,7 @@ export const BrandIntro = () => {
         }
 
         .intro-text-column {
-          text-align: left;
+          text-align: center;
         }
 
         .intro-title {
@@ -287,13 +287,14 @@ export const BrandIntro = () => {
         }
 
         .intro-divider {
-          margin: 0.85rem 0 1.5rem;
+          margin: 0.85rem auto 1.5rem;
         }
 
         .intro-paragraphs {
           display: flex;
           flex-direction: column;
           gap: 1.15rem;
+          text-align: left;
         }
 
         .intro-lead {
@@ -319,10 +320,25 @@ export const BrandIntro = () => {
         .intro-features {
           display: flex;
           flex-wrap: wrap;
+          justify-content: center;
           gap: 1rem;
           margin-top: 2rem;
           padding-top: 1.5rem;
           border-top: 1px solid var(--color-border);
+        }
+
+        @media (min-width: 992px) {
+          .intro-text-column {
+            text-align: left;
+          }
+
+          .intro-divider {
+            margin: 0.85rem 0 1.5rem;
+          }
+
+          .intro-features {
+            justify-content: flex-start;
+          }
         }
 
         .intro-feature-pill {

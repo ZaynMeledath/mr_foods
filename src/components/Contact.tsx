@@ -159,9 +159,6 @@ export const Contact = ({ initialProduct }: ContactProps) => {
           will-change: transform, box-shadow;
           transform: translateZ(0);
         }
-          will-change: transform, box-shadow;
-          transform: translateZ(0);
-        }
 
         .contact-card:hover {
           transform: translateY(-4px);
