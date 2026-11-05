@@ -8,6 +8,9 @@ import {
   CARD_HOVER_TRANSITION,
   TAP_TRANSITION,
   MICRO_HOVER_TRANSITION,
+  FADE_TRANSITION,
+  SECTION_TRANSITION,
+  REVEAL_TRANSITION,
   CSS_TIMINGS,
 } from '../config/animations';
 
@@ -20,22 +23,25 @@ export {
   CARD_HOVER_TRANSITION,
   TAP_TRANSITION,
   MICRO_HOVER_TRANSITION,
+  FADE_TRANSITION,
+  SECTION_TRANSITION,
+  REVEAL_TRANSITION,
   CSS_TIMINGS,
 };
 
-// Transition presets
+// Transition presets strictly bound to config/animations.ts
 export const transitions = {
   micro: { duration: MOTION_DURATIONS.micro, ease: LUXURY_EASE },
   button: { duration: MOTION_DURATIONS.hover, ease: LUXURY_EASE },
   card: { duration: MOTION_DURATIONS.cardHover, ease: LUXURY_EASE },
-  text: { duration: 0.75, ease: LUXURY_EASE },
-  section: { duration: 0.85, ease: LUXURY_EASE },
-  imageReveal: { duration: 1.1, ease: LUXURY_EASE },
+  text: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE },
+  section: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE },
+  imageReveal: { duration: MOTION_DURATIONS.reveal, ease: LUXURY_EASE },
   stagger: 0.1,
   staggerSlow: 0.14,
 };
 
-// Section / Container Variants
+// Section / Container Variants using config/animations.ts
 export const fadeInUp: Variants = {
   hidden: {
     opacity: 0,
@@ -45,7 +51,7 @@ export const fadeInUp: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: MOTION_DURATIONS.section,
       ease: LUXURY_EASE,
     },
   },
@@ -56,7 +62,7 @@ export const fadeIn: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.6,
+      duration: MOTION_DURATIONS.fade,
       ease: LUXURY_EASE,
     },
   },
@@ -82,7 +88,7 @@ export const staggerItem: Variants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.7,
+      duration: MOTION_DURATIONS.section,
       ease: LUXURY_EASE,
     },
   },
@@ -100,7 +106,7 @@ export const imageMaskReveal: Variants = {
     scale: 1,
     clipPath: 'inset(0% 0% 0% 0%)',
     transition: {
-      duration: 1.2,
+      duration: MOTION_DURATIONS.reveal,
       ease: LUXURY_EASE,
     },
   },
@@ -115,7 +121,7 @@ export const imageFadeScale: Variants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.85,
+      duration: MOTION_DURATIONS.section,
       ease: LUXURY_EASE,
     },
   },

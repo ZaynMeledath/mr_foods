@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { X, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import type { ProductItem } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 interface ProductModalProps {
   product: ProductItem | null;
@@ -16,7 +16,6 @@ export const ProductModal = ({
   onClose,
   onSelectForEnquiry,
 }: ProductModalProps) => {
-  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -41,7 +40,7 @@ export const ProductModal = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.28 }}
+            transition={{ duration: MOTION_DURATIONS.micro }}
             onClick={onClose}
           >
             <motion.div
@@ -49,23 +48,20 @@ export const ProductModal = ({
               initial={{ opacity: 0, scale: 0.94, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
-              transition={{ duration: 0.35, ease: LUXURY_EASE }}
+              transition={{ duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE }}
               onClick={(e) => e.stopPropagation()}
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-product-title"
             >
-              <motion.button
+              <button
                 type="button"
                 className="modal-close-btn"
-                whileHover={shouldReduceMotion ? undefined : { rotate: 90, scale: 1.08 }}
-                whileTap={{ scale: 0.94 }}
-                transition={HOVER_TRANSITION}
                 onClick={onClose}
                 aria-label="Close product details"
               >
                 <X size={20} />
-              </motion.button>
+              </button>
 
               <div className="modal-grid">
                 {/* Product Photography */}
@@ -140,19 +136,9 @@ export const ProductModal = ({
 
                   {/* Action Buttons */}
                   <div className="modal-actions">
-                    <motion.button
+                    <button
                       type="button"
                       className="btn btn-primary"
-                      whileHover={
-                        shouldReduceMotion
-                          ? undefined
-                          : {
-                              y: -3,
-                              boxShadow: '0 10px 28px rgba(88, 29, 39, 0.35)',
-                            }
-                      }
-                      whileTap={{ scale: 0.98, y: 0 }}
-                      transition={HOVER_TRANSITION}
                       onClick={() => {
                         onSelectForEnquiry(product.name);
                         onClose();
@@ -160,7 +146,7 @@ export const ProductModal = ({
                     >
                       <span>Enquire to Order {product.name}</span>
                       <ArrowRight size={16} />
-                    </motion.button>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -210,12 +196,23 @@ export const ProductModal = ({
           justify-content: center;
           z-index: 10;
           cursor: pointer;
-          transition: background-color 0.2s ease, color 0.2s ease;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury),
+                      background-color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      border-color var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
         }
 
         .modal-close-btn:hover {
+          transform: rotate(90deg) scale(1.08);
           background-color: var(--color-burgundy);
           color: var(--color-cream);
+          border-color: var(--color-burgundy);
+        }
+
+        .modal-close-btn:active {
+          transform: rotate(90deg) scale(0.96);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .modal-grid {

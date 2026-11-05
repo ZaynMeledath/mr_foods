@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { CRAFT_STEPS } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 export const Craft = () => {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -19,7 +19,7 @@ export const Craft = () => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.8, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <div className="section-badge">The Art of Sweetmaking</div>
           <h2 className="section-title">
@@ -39,21 +39,18 @@ export const Craft = () => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           {CRAFT_STEPS.map((step, idx) => (
-            <motion.button
+            <button
               key={step.step}
               type="button"
               className={`craft-nav-item ${idx === activeStepIndex ? 'active' : ''}`}
-              whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              transition={HOVER_TRANSITION}
               onClick={() => setActiveStepIndex(idx)}
             >
               <span className="craft-nav-num">{step.step}</span>
               <span className="craft-nav-title">{step.title}</span>
-            </motion.button>
+            </button>
           ))}
         </motion.div>
 
@@ -63,7 +60,7 @@ export const Craft = () => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.85, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <div className="craft-card-grid">
             {/* Visual Media with AnimatePresence Cross-fade */}
@@ -77,7 +74,7 @@ export const Craft = () => {
                   initial={{ opacity: 0, scale: 1.04 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease: LUXURY_EASE }}
+                  transition={{ duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE }}
                 />
               </AnimatePresence>
               <div className="craft-step-watermark">{currentStep.step}</div>
@@ -91,7 +88,7 @@ export const Craft = () => {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.4, ease: LUXURY_EASE }}
+                  transition={{ duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE }}
                 >
                   <div className="craft-pill-badge">Stage {currentStep.step} of 05</div>
                   <span className="craft-subtitle">{currentStep.subtitle}</span>
@@ -105,12 +102,9 @@ export const Craft = () => {
 
               {/* Prev / Next controls */}
               <div className="craft-controls">
-                <motion.button
+                <button
                   type="button"
-                  className="craft-ctrl-btn"
-                  whileHover={shouldReduceMotion ? undefined : { x: -3 }}
-                  whileTap={{ scale: 0.96 }}
-                  transition={HOVER_TRANSITION}
+                  className="craft-ctrl-btn prev"
                   onClick={() =>
                     setActiveStepIndex((prev) =>
                       prev > 0 ? prev - 1 : CRAFT_STEPS.length - 1
@@ -120,27 +114,21 @@ export const Craft = () => {
                 >
                   <ArrowLeft size={16} />
                   <span>Previous</span>
-                </motion.button>
+                </button>
 
                 <div className="craft-dots-indicator">
                   {CRAFT_STEPS.map((_, i) => (
-                    <motion.span
+                    <span
                       key={i}
                       className={`craft-dot ${i === activeStepIndex ? 'active' : ''}`}
-                      whileHover={shouldReduceMotion ? undefined : { scale: 1.25 }}
-                      transition={HOVER_TRANSITION}
                       onClick={() => setActiveStepIndex(i)}
-                      layout
                     />
                   ))}
                 </div>
 
-                <motion.button
+                <button
                   type="button"
-                  className="craft-ctrl-btn"
-                  whileHover={shouldReduceMotion ? undefined : { x: 3 }}
-                  whileTap={{ scale: 0.96 }}
-                  transition={HOVER_TRANSITION}
+                  className="craft-ctrl-btn next"
                   onClick={() =>
                     setActiveStepIndex((prev) =>
                       prev < CRAFT_STEPS.length - 1 ? prev + 1 : 0
@@ -150,7 +138,7 @@ export const Craft = () => {
                 >
                   <span>Next</span>
                   <ArrowRight size={16} />
-                </motion.button>
+                </button>
               </div>
             </div>
           </div>
@@ -197,11 +185,18 @@ export const Craft = () => {
           border-radius: var(--radius-full);
           white-space: nowrap;
           cursor: pointer;
-          transition: border-color 0.25s ease, background-color 0.25s ease;
+          transition: var(--transition-button);
+          will-change: transform;
         }
 
         .craft-nav-item:hover {
           border-color: var(--color-antique-gold);
+          transform: translateY(-2px);
+        }
+
+        .craft-nav-item:active {
+          transform: translateY(0) scale(0.98);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .craft-nav-item.active {
@@ -350,11 +345,30 @@ export const Craft = () => {
           border: none;
           border-radius: var(--radius-sm);
           cursor: pointer;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury),
+                      color var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .craft-ctrl-btn.prev:hover {
+          transform: translateX(-3px);
+          color: var(--color-antique-gold);
+        }
+
+        .craft-ctrl-btn.next:hover {
+          transform: translateX(3px);
+          color: var(--color-antique-gold);
+        }
+
+        .craft-ctrl-btn:active {
+          transform: scale(0.96);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .craft-dots-indicator {
           display: flex;
           gap: 0.5rem;
+          align-items: center;
         }
 
         .craft-dot {
@@ -363,6 +377,15 @@ export const Craft = () => {
           border-radius: 50%;
           background-color: var(--color-border);
           cursor: pointer;
+          transition: transform var(--transition-duration-micro) var(--transition-ease-luxury),
+                      background-color var(--transition-duration-micro) var(--transition-ease-luxury),
+                      width var(--transition-duration-micro) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .craft-dot:hover {
+          background-color: var(--color-antique-gold);
+          transform: scale(1.25);
         }
 
         .craft-dot.active {

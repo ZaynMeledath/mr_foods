@@ -1,10 +1,10 @@
 import { Phone, Mail, MapPin } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { InstagramIcon } from './InstagramIcon';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { BRAND_INFO } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 interface FooterProps {
   onSelectProduct: (productName: string) => void;
@@ -12,7 +12,6 @@ interface FooterProps {
 
 export const Footer = ({ onSelectProduct }: FooterProps) => {
   const currentYear = new Date().getFullYear();
-  const shouldReduceMotion = useReducedMotion();
 
   const scrollTo = (href: string) => {
     const el = document.querySelector(href);
@@ -29,7 +28,7 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.1, ease: LUXURY_EASE }}
+        transition={{ duration: MOTION_DURATIONS.reveal, ease: LUXURY_EASE }}
       />
 
       <div className="container footer-container">
@@ -55,18 +54,16 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
             className="footer-col brand-col"
             variants={{
               hidden: { opacity: 0, y: 22 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: LUXURY_EASE } },
+              visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
             }}
           >
             <div className="footer-brand-header">
-              <motion.img
+              <img
                 src="/mr_group_logo.png"
                 alt="MR Group Foods Logo"
                 className="footer-logo-img"
                 width="48"
                 height="48"
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.06 }}
-                transition={HOVER_TRANSITION}
               />
               <div className="footer-brand-title">
                 <span className="brand-title-main">MR GROUP FOODS</span>
@@ -89,7 +86,7 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
             className="footer-col"
             variants={{
               hidden: { opacity: 0, y: 22 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: LUXURY_EASE } },
+              visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
             }}
           >
             <h4 className="footer-col-title">Navigation</h4>
@@ -137,7 +134,7 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
             className="footer-col"
             variants={{
               hidden: { opacity: 0, y: 22 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: LUXURY_EASE } },
+              visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
             }}
           >
             <h4 className="footer-col-title">Our Delicacies</h4>
@@ -170,18 +167,16 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
 
             <div className="footer-social-section">
               <h5 className="social-heading">Follow Our Journey</h5>
-              <motion.a
+              <a
                 href={BRAND_INFO.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-social-link"
                 aria-label="Instagram"
-                whileHover={shouldReduceMotion ? undefined : { x: 4 }}
-                transition={HOVER_TRANSITION}
               >
                 <InstagramIcon size={18} />
                 <span>{BRAND_INFO.instagramHandle}</span>
-              </motion.a>
+              </a>
             </div>
           </motion.div>
 
@@ -190,7 +185,7 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
             className="footer-col"
             variants={{
               hidden: { opacity: 0, y: 22 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: LUXURY_EASE } },
+              visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
             }}
           >
             <h4 className="footer-col-title">Contact &amp; Orders</h4>
@@ -210,18 +205,15 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
             </div>
 
             <div className="footer-wa-action">
-              <motion.a
+              <a
                 href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=Hello%20MR%20Group%20Foods,%20I%20would%20like%20to%20enquire%20about%20ordering%20traditional%20sweets.`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp footer-wa-btn"
-                whileHover={shouldReduceMotion ? undefined : { y: -2, boxShadow: '0 8px 22px rgba(18, 140, 126, 0.38)' }}
-                whileTap={{ scale: 0.98, y: 0 }}
-                transition={HOVER_TRANSITION}
               >
                 <WhatsAppIcon size={16} />
                 <span>WhatsApp Order</span>
-              </motion.a>
+              </a>
             </div>
           </motion.div>
         </motion.div>
@@ -359,17 +351,28 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
           gap: 0.75rem;
         }
 
+        .footer-logo-img {
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .footer-logo-img:hover {
+          transform: scale(1.06);
+        }
+
         .footer-links a,
         .footer-btn-link {
           font-family: var(--font-sans);
           font-size: 0.88rem;
           color: rgba(247, 240, 229, 0.8);
-          transition: color 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      transform var(--transition-duration-hover) var(--transition-ease-luxury);
           text-align: left;
           padding: 0;
           background: none;
           border: none;
           cursor: pointer;
+          will-change: transform;
         }
 
         .footer-links a:hover,
@@ -400,11 +403,14 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
           gap: 0.5rem;
           font-size: 0.85rem;
           color: var(--color-cream);
-          transition: color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      transform var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
         }
 
         .footer-social-link:hover {
           color: var(--color-gold-light);
+          transform: translateX(4px);
         }
 
         .footer-contact-items {
@@ -435,7 +441,13 @@ export const Footer = ({ onSelectProduct }: FooterProps) => {
         }
 
         .footer-wa-btn:hover {
-          transform: none;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 22px rgba(18, 140, 126, 0.38);
+        }
+
+        .footer-wa-btn:active {
+          transform: translateY(0) scale(0.98);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .footer-divider {

@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { LUXURY_EASE } from '../../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../../utils/motion';
 
 interface RevealTextProps {
   text: string;
@@ -49,7 +49,7 @@ export const RevealText = ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.75,
+        duration: MOTION_DURATIONS.section,
         ease: LUXURY_EASE,
       },
     },

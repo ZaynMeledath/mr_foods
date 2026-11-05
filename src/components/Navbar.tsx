@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
+import { motion, AnimatePresence } from 'motion/react';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 interface NavbarProps {
   onOpenEnquiry?: () => void;
 }
 
 export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
-  const shouldReduceMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -41,27 +40,20 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
       <motion.header
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: LUXURY_EASE }}
+        transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         className={`navbar-root ${isScrolled ? 'navbar-scrolled' : 'navbar-transparent'}`}
       >
         <div className="container navbar-container">
           {/* Logo & Brand Name */}
-          <motion.a
+          <a
             href="#hero"
             className="navbar-brand"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
             onClick={(e) => {
               e.preventDefault();
               handleNavClick('#hero');
             }}
           >
-            <motion.div
-              className="brand-logo-mark"
-              whileHover={{ scale: 1.06 }}
-              transition={{ duration: 0.25 }}
-            >
+            <div className="brand-logo-mark">
               <img
                 src="/mr_group_logo.png"
                 alt="MR Group Foods Logo"
@@ -69,12 +61,12 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
                 width="42"
                 height="42"
               />
-            </motion.div>
+            </div>
             <div className="brand-titles">
               <span className="brand-name">MR GROUP FOODS</span>
               <span className="brand-tagline">KERALA TRADITIONAL SWEETS</span>
             </div>
-          </motion.a>
+          </a>
 
           {/* Desktop Navigation Links */}
           <nav className="desktop-nav" aria-label="Main Navigation">
@@ -99,12 +91,9 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
 
           {/* Right Action: Enquire Now CTA & Mobile Menu Toggle */}
           <div className="nav-actions">
-            <motion.button
+            <button
               type="button"
               className="btn btn-enquire"
-              whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-              whileTap={{ scale: 0.97, y: 0 }}
-              transition={HOVER_TRANSITION}
               onClick={() => {
                 if (onOpenEnquiry) {
                   onOpenEnquiry();
@@ -114,25 +103,20 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
               }}
             >
               <span>Enquire Now</span>
-              <motion.span
-                className="enquire-arrow"
-                whileHover={shouldReduceMotion ? undefined : { x: 2, y: -2 }}
-                transition={HOVER_TRANSITION}
-              >
+              <span className="enquire-arrow">
                 <ArrowUpRight size={15} />
-              </motion.span>
-            </motion.button>
+              </span>
+            </button>
 
-            <motion.button
+            <button
               type="button"
               className="mobile-menu-btn"
-              whileTap={{ scale: 0.94 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Navigation Menu'}
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </motion.button>
+            </button>
           </div>
         </div>
       </motion.header>
@@ -145,7 +129,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: MOTION_DURATIONS.micro }}
             onClick={() => setMobileMenuOpen(false)}
           >
             <motion.div
@@ -153,7 +137,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ duration: 0.4, ease: LUXURY_EASE }}
+              transition={{ duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="mobile-drawer-header">
@@ -170,15 +154,14 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
                     <span className="brand-tagline text-gold">TRADITIONAL KERALA SWEETS</span>
                   </div>
                 </div>
-                <motion.button
+                <button
                   type="button"
                   className="mobile-close-btn"
-                  whileTap={{ scale: 0.92 }}
                   onClick={() => setMobileMenuOpen(false)}
                   aria-label="Close Menu"
                 >
                   <X size={22} />
-                </motion.button>
+                </button>
               </div>
 
               <motion.nav
@@ -200,7 +183,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
                     className="mobile-nav-link"
                     variants={{
                       hidden: { opacity: 0, x: 20 },
-                      visible: { opacity: 1, x: 0, transition: { duration: 0.35, ease: LUXURY_EASE } },
+                      visible: { opacity: 1, x: 0, transition: { duration: MOTION_DURATIONS.micro, ease: LUXURY_EASE } },
                     }}
                     whileTap={{ scale: 0.98 }}
                     onClick={(e) => {
@@ -215,10 +198,9 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
               </motion.nav>
 
               <div className="mobile-drawer-footer">
-                <motion.button
+                <button
                   type="button"
                   className="btn btn-primary w-full"
-                  whileTap={{ scale: 0.97 }}
                   onClick={() => {
                     setMobileMenuOpen(false);
                     if (onOpenEnquiry) {
@@ -230,7 +212,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
                 >
                   <span>Enquire Now</span>
                   <ArrowUpRight size={16} />
-                </motion.button>
+                </button>
               </div>
             </motion.div>
           </motion.div>
@@ -245,10 +227,10 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           left: 0;
           right: 0;
           z-index: 1000;
-          transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                      box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                      padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                      border-color 0.4s ease;
+          transition: background-color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      box-shadow var(--transition-duration-hover) var(--transition-ease-luxury),
+                      padding var(--transition-duration-hover) var(--transition-ease-luxury),
+                      border-color var(--transition-duration-hover) var(--transition-ease-luxury);
           border-bottom: 1px solid transparent;
         }
 
@@ -280,12 +262,24 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           align-items: center;
           gap: 0.85rem;
           text-decoration: none;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .navbar-brand:hover {
+          transform: scale(1.02);
         }
 
         .brand-logo-mark {
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .navbar-brand:hover .brand-logo-mark {
+          transform: scale(1.05);
         }
 
         .brand-logo-img {
@@ -356,7 +350,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           display: inline-flex;
           flex-direction: column;
           align-items: center;
-          transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: color var(--transition-duration-hover) var(--transition-ease-luxury);
         }
 
         .nav-link-indicator {
@@ -366,7 +360,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           width: 0;
           height: 1.5px;
           background-color: var(--color-antique-gold);
-          transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: width var(--transition-duration-micro) var(--transition-ease-luxury);
         }
 
         .nav-link:hover {
@@ -398,6 +392,7 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           border-radius: var(--radius-sm);
           transition: var(--transition-button);
           will-change: transform;
+          cursor: pointer;
         }
 
         .btn-enquire:hover {
@@ -405,13 +400,23 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           color: var(--color-cream);
           border-color: var(--color-burgundy);
           box-shadow: 0 6px 18px rgba(88, 29, 39, 0.22);
-          transform: none;
+          transform: translateY(-2px);
+        }
+
+        .btn-enquire:active {
+          transform: translateY(0) scale(0.97);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .enquire-arrow {
           display: inline-flex;
           align-items: center;
           justify-content: center;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury);
+        }
+
+        .btn-enquire:hover .enquire-arrow {
+          transform: translate(2px, -2px);
         }
 
         .mobile-menu-btn {
@@ -425,6 +430,18 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           border-radius: var(--radius-sm);
           background-color: var(--color-cream-light);
           cursor: pointer;
+          transition: transform var(--transition-duration-micro) var(--transition-ease-luxury),
+                      background-color var(--transition-duration-micro) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .mobile-menu-btn:hover {
+          transform: scale(1.04);
+        }
+
+        .mobile-menu-btn:active {
+          transform: scale(0.94);
+          transition-duration: var(--transition-duration-tap);
         }
 
         @media (min-width: 992px) {
@@ -478,6 +495,19 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           background-color: var(--color-cream-light);
           border: 1px solid var(--color-border);
           cursor: pointer;
+          transition: transform var(--transition-duration-micro) var(--transition-ease-luxury),
+                      background-color var(--transition-duration-micro) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .mobile-close-btn:hover {
+          transform: rotate(90deg) scale(1.06);
+          background-color: rgba(88, 29, 39, 0.08);
+        }
+
+        .mobile-close-btn:active {
+          transform: rotate(90deg) scale(0.94);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .mobile-nav-list {
@@ -498,7 +528,8 @@ export const Navbar = ({ onOpenEnquiry }: NavbarProps) => {
           font-weight: 500;
           color: var(--color-burgundy);
           border-bottom: 1px dashed rgba(182, 154, 98, 0.3);
-          transition: all 0.25s ease;
+          transition: color var(--transition-duration-micro) var(--transition-ease-luxury),
+                      padding-left var(--transition-duration-micro) var(--transition-ease-luxury);
         }
 
         .mobile-nav-link:hover {

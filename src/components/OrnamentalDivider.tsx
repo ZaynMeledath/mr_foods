@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { LUXURY_EASE } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 interface OrnamentalDividerProps {
   color?: 'gold' | 'burgundy' | 'cream';
@@ -37,7 +37,7 @@ export const OrnamentalDivider = ({
       initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.5 }}
-      transition={{ duration: 0.7, ease: LUXURY_EASE }}
+      transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
     >
       <motion.span
         className="kasavu-line"
@@ -48,7 +48,7 @@ export const OrnamentalDivider = ({
         initial={shouldReduceMotion ? undefined : { scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.65, ease: LUXURY_EASE }}
+        transition={{ duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE }}
       />
       {/* Traditional Kerala Stylized Lotus / Uruli Motif */}
       <motion.svg
@@ -61,7 +61,7 @@ export const OrnamentalDivider = ({
         initial={shouldReduceMotion ? undefined : { scale: 0.6, rotate: -20 }}
         whileInView={{ scale: 1, rotate: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.15, ease: LUXURY_EASE }}
+        transition={{ duration: MOTION_DURATIONS.fade, delay: 0.15, ease: LUXURY_EASE }}
       >
         <path
           d="M12 2C13.5 6 15 8.5 12 12C9 8.5 10.5 6 12 2Z"
@@ -88,7 +88,7 @@ export const OrnamentalDivider = ({
         initial={shouldReduceMotion ? undefined : { scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.65, ease: LUXURY_EASE }}
+        transition={{ duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE }}
       />
     </motion.div>
   );

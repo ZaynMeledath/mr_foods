@@ -5,7 +5,7 @@ import { PRODUCTS } from '../data/content';
 import type { ProductItem } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
 import { ProductModal } from './ProductModal';
-import { LUXURY_EASE, HOVER_TRANSITION, CARD_HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 interface ProductsProps {
   onSelectForEnquiry: (productName: string) => void;
@@ -24,7 +24,7 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.8, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <div className="section-badge">Signature Delicacies</div>
           <h2 className="section-title">
@@ -41,144 +41,111 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
         {/* Two Signature Product Showcase Cards */}
         <div className="products-grid">
           {PRODUCTS.map((prod, index) => (
-            <motion.article
+            <motion.div
               key={prod.id}
-              className="product-card"
+              className="product-card-wrap"
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 38 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{
-                duration: 0.85,
-                delay: index * 0.18,
+                duration: MOTION_DURATIONS.section,
+                delay: index * 0.16,
                 ease: LUXURY_EASE,
               }}
-              whileHover={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      y: -8,
-                      boxShadow: '0 24px 48px -12px rgba(56, 37, 29, 0.16)',
-                      transition: CARD_HOVER_TRANSITION,
-                    }
-              }
             >
-              {/* Product Media Box */}
-              <div
-                className="product-media-wrap"
-                onClick={() => setSelectedProduct(prod)}
-                style={{ cursor: 'pointer' }}
-                title={`Discover more about ${prod.name}`}
-              >
-                <motion.img
-                  src={prod.image}
-                  alt={prod.imageAlt}
-                  className="product-image"
-                  loading="lazy"
-                  whileHover={
-                    shouldReduceMotion
-                      ? undefined
-                      : {
-                          scale: 1.055,
-                          transition: { duration: 0.7, ease: LUXURY_EASE },
-                        }
-                  }
-                />
-                <div className="product-overlay-gradient" />
-                <div className="product-badge-overlay">
-                  <span className="badge-tag">{prod.tagline}</span>
-                  <span className="badge-malayalam">{prod.malayalamName}</span>
-                </div>
-              </div>
-
-              {/* Product Body Content */}
-              <div className="product-card-body">
-                <div className="product-header-row">
-                  <h3
-                    className="product-name"
-                    onClick={() => setSelectedProduct(prod)}
-                    style={{ cursor: 'pointer' }}
-                    title={`Discover more about ${prod.name}`}
-                  >
-                    {prod.name}
-                  </h3>
-                  <motion.div
-                    className="product-accent-icon"
-                    aria-hidden="true"
-                    animate={
-                      shouldReduceMotion
-                        ? undefined
-                        : { rotate: [0, 10, -10, 0] }
-                    }
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: index * 0.5,
-                    }}
-                  >
-                    <Sparkles size={16} className="text-gold" />
-                  </motion.div>
+              <article className="product-card">
+                {/* Product Media Box */}
+                <div
+                  className="product-media-wrap"
+                  onClick={() => setSelectedProduct(prod)}
+                  style={{ cursor: 'pointer' }}
+                  title={`Discover more about ${prod.name}`}
+                >
+                  <img
+                    src={prod.image}
+                    alt={prod.imageAlt}
+                    className="product-image"
+                    loading="lazy"
+                  />
+                  <div className="product-overlay-gradient" />
+                  <div className="product-badge-overlay">
+                    <span className="badge-tag">{prod.tagline}</span>
+                    <span className="badge-malayalam">{prod.malayalamName}</span>
+                  </div>
                 </div>
 
-                <p className="product-headline font-serif">
-                  &ldquo;{prod.headline}&rdquo;
-                </p>
-
-                <p className="product-desc">{prod.description}</p>
-
-                {/* Key Ingredients Summary */}
-                <div className="product-ingredients-bar">
-                  <span className="bar-label">Ingredients:</span>
-                  <span className="bar-list">
-                    {prod.details.keyIngredients.join(' • ')}
-                  </span>
-                </div>
-
-                {/* Card Actions */}
-                <div className="product-card-footer">
-                  <motion.button
-                    type="button"
-                    className="discover-link"
-                    onClick={() => setSelectedProduct(prod)}
-                    aria-label={`Discover more about ${prod.name}`}
-                    whileHover={shouldReduceMotion ? undefined : { x: 2 }}
-                    transition={HOVER_TRANSITION}
-                  >
-                    <span className="discover-link-text">
-                      Discover More
-                      <span className="link-underline" />
-                    </span>
-                    <motion.span
-                      className="link-arrow"
-                      whileHover={shouldReduceMotion ? undefined : { x: 4 }}
-                      transition={HOVER_TRANSITION}
+                {/* Product Body Content */}
+                <div className="product-card-body">
+                  <div className="product-header-row">
+                    <h3
+                      className="product-name"
+                      onClick={() => setSelectedProduct(prod)}
+                      style={{ cursor: 'pointer' }}
+                      title={`Discover more about ${prod.name}`}
                     >
-                      <ArrowRight size={15} />
-                    </motion.span>
-                  </motion.button>
+                      {prod.name}
+                    </h3>
+                    <motion.div
+                      className="product-accent-icon"
+                      aria-hidden="true"
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : { rotate: [0, 10, -10, 0] }
+                      }
+                      transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: index * 0.5,
+                      }}
+                    >
+                      <Sparkles size={16} className="text-gold" />
+                    </motion.div>
+                  </div>
 
-                  <motion.button
-                    type="button"
-                    className="btn-card-order"
-                    whileHover={
-                      shouldReduceMotion
-                        ? undefined
-                        : {
-                            y: -2,
-                            backgroundColor: 'var(--color-burgundy)',
-                            color: 'var(--color-cream)',
-                            boxShadow: '0 6px 18px rgba(88, 29, 39, 0.25)',
-                          }
-                    }
-                    whileTap={{ scale: 0.97, y: 0 }}
-                    transition={HOVER_TRANSITION}
-                    onClick={() => onSelectForEnquiry(prod.name)}
-                  >
-                    Enquire to Order
-                  </motion.button>
+                  <p className="product-headline font-serif">
+                    &ldquo;{prod.headline}&rdquo;
+                  </p>
+
+                  <p className="product-desc">{prod.description}</p>
+
+                  {/* Key Ingredients Summary */}
+                  <div className="product-ingredients-bar">
+                    <span className="bar-label">Ingredients:</span>
+                    <span className="bar-list">
+                      {prod.details.keyIngredients.join(' • ')}
+                    </span>
+                  </div>
+
+                  {/* Card Actions */}
+                  <div className="product-card-footer">
+                    <button
+                      type="button"
+                      className="discover-link"
+                      onClick={() => setSelectedProduct(prod)}
+                      aria-label={`Discover more about ${prod.name}`}
+                    >
+                      <span className="discover-link-text">
+                        Discover More
+                        <span className="link-underline" />
+                      </span>
+                      <span className="link-arrow">
+                        <ArrowRight size={15} />
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
+                      className="btn-card-order"
+                      onClick={() => onSelectForEnquiry(prod.name)}
+                    >
+                      Enquire to Order
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </motion.article>
+              </article>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -224,6 +191,10 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           }
         }
 
+        .product-card-wrap {
+          height: 100%;
+        }
+
         .product-card {
           background-color: var(--color-cream-light);
           border: 1px solid var(--color-border);
@@ -233,10 +204,15 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           flex-direction: column;
           overflow: hidden;
           position: relative;
-          transition: border-color 0.35s ease;
+          height: 100%;
+          transition: var(--transition-card);
+          will-change: transform, box-shadow;
+          transform: translateZ(0);
         }
 
         .product-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 24px 48px -12px rgba(56, 37, 29, 0.16);
           border-color: var(--color-antique-gold);
         }
 
@@ -252,6 +228,12 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           height: 100%;
           object-fit: cover;
           display: block;
+          transition: transform var(--transition-duration-card) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .product-card:hover .product-image {
+          transform: scale(1.055);
         }
 
         .product-overlay-gradient {
@@ -394,7 +376,7 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           width: 0;
           height: 1.5px;
           background-color: var(--color-antique-gold);
-          transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: width var(--transition-duration-micro) var(--transition-ease-luxury);
         }
 
         .discover-link:hover .link-underline {
@@ -408,14 +390,20 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
         .link-arrow {
           display: inline-flex;
           align-items: center;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury);
+        }
+
+        .discover-link:hover .link-arrow,
+        .product-card:hover .link-arrow {
+          transform: translateX(4px);
         }
 
         .btn-card-order {
           background-color: transparent;
           color: var(--color-burgundy);
           border: 1px solid var(--color-burgundy);
-          padding: 0.45rem 0.95rem;
-          font-size: 0.78rem;
+          padding: 0.5rem 1.05rem;
+          font-size: 0.8rem;
           font-weight: 600;
           letter-spacing: 0.06em;
           text-transform: uppercase;
@@ -423,6 +411,18 @@ export const Products = ({ onSelectForEnquiry }: ProductsProps) => {
           cursor: pointer;
           transition: var(--transition-button);
           will-change: transform;
+        }
+
+        .btn-card-order:hover {
+          background-color: var(--color-burgundy);
+          color: var(--color-cream);
+          box-shadow: 0 6px 18px rgba(88, 29, 39, 0.25);
+          transform: translateY(-2px);
+        }
+
+        .btn-card-order:active {
+          transform: translateY(0) scale(0.97);
+          transition-duration: var(--transition-duration-tap);
         }
       `}</style>
     </section>

@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { BRAND_INFO } from '../data/content';
-import { HOVER_TRANSITION } from '../utils/motion';
+import { MOTION_DURATIONS } from '../utils/motion';
 
 export const WhatsAppButton = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -12,22 +12,17 @@ export const WhatsAppButton = () => {
 
   return (
     <>
-      <motion.a
-        href={waUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="wa-floating-btn"
-        aria-label="Chat with MR Group Foods on WhatsApp"
-        title="Direct WhatsApp Enquiry"
+      <motion.div
+        className="wa-floating-wrap"
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{
           opacity: 1,
           scale: 1,
-          y: shouldReduceMotion ? 0 : [0, -5, 0],
+          y: shouldReduceMotion ? 0 : [0, -6, 0],
         }}
         transition={{
-          opacity: { duration: 0.6, delay: 1.4 },
-          scale: { duration: 0.6, delay: 1.4 },
+          opacity: { duration: MOTION_DURATIONS.fade, delay: 1.4 },
+          scale: { duration: MOTION_DURATIONS.fade, delay: 1.4 },
           y: {
             repeat: Infinity,
             duration: 4.5,
@@ -35,28 +30,29 @@ export const WhatsAppButton = () => {
             delay: 2,
           },
         }}
-        whileHover={
-          shouldReduceMotion
-            ? undefined
-            : {
-                scale: 1.05,
-                y: -3,
-                boxShadow: '0 14px 32px rgba(37, 211, 102, 0.55)',
-                transition: HOVER_TRANSITION,
-              }
-        }
-        whileTap={{ scale: 0.96, y: 0 }}
       >
-        <WhatsAppIcon size={26} className="wa-icon" />
-        <span className="wa-label">Enquire on WhatsApp</span>
-      </motion.a>
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="wa-floating-btn"
+          aria-label="Chat with MR Group Foods on WhatsApp"
+          title="Direct WhatsApp Enquiry"
+        >
+          <WhatsAppIcon size={26} className="wa-icon" />
+          <span className="wa-label">Enquire on WhatsApp</span>
+        </a>
+      </motion.div>
 
       <style>{`
-        .wa-floating-btn {
+        .wa-floating-wrap {
           position: fixed;
           bottom: 24px;
           right: 24px;
           z-index: 999;
+        }
+
+        .wa-floating-btn {
           display: flex;
           align-items: center;
           gap: 0.6rem;
@@ -67,10 +63,22 @@ export const WhatsAppButton = () => {
           box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
           text-decoration: none;
           cursor: pointer;
+          transition: var(--transition-button);
+          will-change: transform, box-shadow;
+          transform: translateZ(0);
         }
 
         .wa-floating-btn:hover {
           color: #ffffff;
+          transform: translateY(-3px) scale(1.04);
+          box-shadow: 0 14px 32px rgba(37, 211, 102, 0.55);
+          background-color: #20BA5C;
+        }
+
+        .wa-floating-btn:active {
+          transform: translateY(0) scale(0.97);
+          box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .wa-icon {

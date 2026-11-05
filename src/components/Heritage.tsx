@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, CARD_HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 export const Heritage = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -25,7 +25,7 @@ export const Heritage = () => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.85, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <div className="heritage-badge">Kerala Culinary Legacy</div>
           <h2 className="heritage-headline">
@@ -57,7 +57,7 @@ export const Heritage = () => {
             <motion.h3
               variants={{
                 hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               className="story-lead-heading"
             >
@@ -67,7 +67,7 @@ export const Heritage = () => {
             <motion.p
               variants={{
                 hidden: { opacity: 0, y: 18 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               className="story-text"
             >
@@ -80,7 +80,7 @@ export const Heritage = () => {
             <motion.blockquote
               variants={{
                 hidden: { opacity: 0, x: -16 },
-                visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: LUXURY_EASE } },
+                visible: { opacity: 1, x: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               className="heritage-quote"
             >
@@ -91,7 +91,7 @@ export const Heritage = () => {
             <motion.p
               variants={{
                 hidden: { opacity: 0, y: 18 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               className="story-text"
             >
@@ -105,34 +105,22 @@ export const Heritage = () => {
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               className="heritage-milestones"
             >
-              <motion.div
-                className="milestone-box"
-                whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-gold-light)' }}
-                transition={CARD_HOVER_TRANSITION}
-              >
+              <div className="milestone-box">
                 <span className="milestone-title">Authentic Vessels</span>
                 <span className="milestone-desc">Traditional cast moulds &amp; heavy brass Urulis</span>
-              </motion.div>
-              <motion.div
-                className="milestone-box"
-                whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-gold-light)' }}
-                transition={CARD_HOVER_TRANSITION}
-              >
+              </div>
+              <div className="milestone-box">
                 <span className="milestone-title">Pure Palm Jaggery</span>
                 <span className="milestone-desc">Rich caramel notes unhampered by additives</span>
-              </motion.div>
-              <motion.div
-                className="milestone-box"
-                whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-gold-light)' }}
-                transition={CARD_HOVER_TRANSITION}
-              >
+              </div>
+              <div className="milestone-box">
                 <span className="milestone-title">Native Bananas</span>
                 <span className="milestone-desc">Naturally sweetened ripe Kerala variety</span>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -146,7 +134,7 @@ export const Heritage = () => {
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.95, ease: LUXURY_EASE }}
+              transition={{ duration: MOTION_DURATIONS.reveal, ease: LUXURY_EASE }}
             >
               <div className="heritage-frame-inner">
                 <img
@@ -164,27 +152,20 @@ export const Heritage = () => {
 
             {/* Inset historical note box */}
             <motion.div
-              className="heritage-history-box"
+              className="heritage-history-wrap"
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: LUXURY_EASE }}
-              whileHover={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      y: -3,
-                      transition: CARD_HOVER_TRANSITION,
-                    }
-              }
-              whileTap={{ scale: 0.98 }}
+              transition={{ duration: MOTION_DURATIONS.section, delay: 0.25, ease: LUXURY_EASE }}
             >
-              <span className="history-kerala-symbol">കേരള തനിമ</span>
-              <h4 className="history-title">Generations of Unbroken Taste</h4>
-              <p className="history-text">
-                Every recipe we prepare stays faithful to the exact proportion of ingredients that our
-                elders taught us. We cherish this craft because real heritage cannot be rushed.
-              </p>
+              <div className="heritage-history-box">
+                <span className="history-kerala-symbol">കേരള തനിമ</span>
+                <h4 className="history-title">Generations of Unbroken Taste</h4>
+                <p className="history-text">
+                  Every recipe we prepare stays faithful to the exact proportion of ingredients that our
+                  elders taught us. We cherish this craft because real heritage cannot be rushed.
+                </p>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -336,7 +317,16 @@ export const Heritage = () => {
           display: flex;
           flex-direction: column;
           gap: 0.25rem;
-          transition: border-color 0.25s ease;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury),
+                      border-color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      background-color var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .milestone-box:hover {
+          transform: translateY(-3px);
+          border-color: var(--color-gold-light);
+          background-color: rgba(63, 19, 26, 0.85);
         }
 
         .milestone-title {
@@ -419,6 +409,15 @@ export const Heritage = () => {
           margin-right: 20px;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
           z-index: 3;
+          transition: var(--transition-card);
+          will-change: transform;
+          transform: translateZ(0);
+        }
+
+        .heritage-history-box:hover {
+          transform: translateY(-4px);
+          border-color: var(--color-gold-light);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.38);
         }
 
         .history-kerala-symbol {

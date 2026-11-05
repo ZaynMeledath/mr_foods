@@ -2,7 +2,7 @@ import { Scroll, Users, Sparkles, Heart } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { DIFFERENCE_ITEMS } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION, CARD_HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 export const Difference = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -31,7 +31,7 @@ export const Difference = () => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.8, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <div className="section-badge">The MR Group Foods Promise</div>
           <h2 className="section-title">
@@ -50,36 +50,24 @@ export const Difference = () => {
           {DIFFERENCE_ITEMS.map((item, index) => (
             <motion.div
               key={item.id}
-              className="diff-card"
+              className="diff-card-wrap"
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{
-                duration: 0.75,
-                delay: index * 0.12,
+                duration: MOTION_DURATIONS.section,
+                delay: index * 0.1,
                 ease: LUXURY_EASE,
               }}
-              whileHover={
-                shouldReduceMotion
-                  ? undefined
-                  : {
-                      y: -6,
-                      boxShadow: '0 18px 36px -8px rgba(56, 37, 29, 0.12)',
-                      borderColor: 'var(--color-antique-gold)',
-                      transition: CARD_HOVER_TRANSITION,
-                    }
-              }
             >
-              <div className="diff-card-badge">0{index + 1}</div>
-              <motion.div
-                className="diff-icon-wrapper"
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
-                transition={HOVER_TRANSITION}
-              >
-                {getIcon(item.iconName)}
-              </motion.div>
-              <h3 className="diff-item-title">{item.title}</h3>
-              <p className="diff-item-desc">{item.description}</p>
+              <div className="diff-card">
+                <div className="diff-card-badge">0{index + 1}</div>
+                <div className="diff-icon-wrapper">
+                  {getIcon(item.iconName)}
+                </div>
+                <h3 className="diff-item-title">{item.title}</h3>
+                <p className="diff-item-desc">{item.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -124,6 +112,10 @@ export const Difference = () => {
           }
         }
 
+        .diff-card-wrap {
+          height: 100%;
+        }
+
         .diff-card {
           position: relative;
           background-color: var(--color-cream-light);
@@ -132,7 +124,16 @@ export const Difference = () => {
           padding: 2.25rem 1.75rem;
           display: flex;
           flex-direction: column;
-          transition: border-color 0.3s ease;
+          height: 100%;
+          transition: var(--transition-card);
+          will-change: transform, box-shadow;
+          transform: translateZ(0);
+        }
+
+        .diff-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 36px -8px rgba(56, 37, 29, 0.12);
+          border-color: var(--color-antique-gold);
         }
 
         .diff-card-badge {
@@ -155,11 +156,14 @@ export const Difference = () => {
           align-items: center;
           justify-content: center;
           margin-bottom: 1.5rem;
-          transition: background-color 0.3s ease;
+          transition: background-color var(--transition-duration-micro) var(--transition-ease-luxury),
+                      transform var(--transition-duration-micro) var(--transition-ease-luxury);
+          will-change: transform;
         }
 
         .diff-card:hover .diff-icon-wrapper {
           background-color: #fff;
+          transform: scale(1.08);
         }
 
         .diff-item-title {

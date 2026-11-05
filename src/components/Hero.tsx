@@ -1,7 +1,7 @@
 import { ArrowDown } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 export const Hero = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -31,7 +31,7 @@ export const Hero = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: MOTION_DURATIONS.section,
         ease: LUXURY_EASE,
       },
     },
@@ -43,7 +43,7 @@ export const Hero = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.85,
+        duration: MOTION_DURATIONS.section,
         ease: LUXURY_EASE,
       },
     },
@@ -118,7 +118,7 @@ export const Hero = () => {
                 visible: {
                   opacity: 1,
                   scaleX: 1,
-                  transition: { duration: 0.8, ease: LUXURY_EASE },
+                  transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE },
                 },
               }}
               style={{ transformOrigin: 'left center' }}
@@ -134,27 +134,21 @@ export const Hero = () => {
 
             {/* CTA Buttons */}
             <motion.div variants={itemFadeUp} className="hero-actions">
-              <motion.button
+              <button
                 type="button"
                 className="btn btn-primary hero-btn-main"
-                whileHover={shouldReduceMotion ? undefined : { y: -3, boxShadow: '0 10px 28px rgba(88, 29, 39, 0.35)' }}
-                whileTap={{ scale: 0.98, y: 0 }}
-                transition={HOVER_TRANSITION}
                 onClick={() => scrollTo('#products')}
               >
                 <span>Explore Our Products</span>
-              </motion.button>
+              </button>
 
-              <motion.button
+              <button
                 type="button"
                 className="btn btn-outline hero-btn-sub"
-                whileHover={shouldReduceMotion ? undefined : { y: -3, backgroundColor: 'var(--color-burgundy)', color: 'var(--color-cream)' }}
-                whileTap={{ scale: 0.98, y: 0 }}
-                transition={HOVER_TRANSITION}
                 onClick={() => scrollTo('#story')}
               >
                 <span>Our Story</span>
-              </motion.button>
+              </button>
             </motion.div>
 
             {/* Heritage Trust Badges */}
@@ -191,7 +185,7 @@ export const Hero = () => {
                 clipPath: 'inset(0% 0% 0% 0%)',
               }}
               transition={{
-                duration: 1.15,
+                duration: MOTION_DURATIONS.reveal,
                 delay: 0.25,
                 ease: LUXURY_EASE,
               }}
@@ -201,25 +195,25 @@ export const Hero = () => {
                 className="frame-corner top-left"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
+                transition={{ duration: MOTION_DURATIONS.fade, delay: 0.8 }}
               />
               <motion.div
                 className="frame-corner top-right"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.85 }}
+                transition={{ duration: MOTION_DURATIONS.fade, delay: 0.85 }}
               />
               <motion.div
                 className="frame-corner bottom-left"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.9 }}
+                transition={{ duration: MOTION_DURATIONS.fade, delay: 0.9 }}
               />
               <motion.div
                 className="frame-corner bottom-right"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.95 }}
+                transition={{ duration: MOTION_DURATIONS.fade, delay: 0.95 }}
               />
 
               <div className="hero-image-container">
@@ -257,7 +251,7 @@ export const Hero = () => {
                   y: shouldReduceMotion ? 0 : [0, -6, 0],
                 }}
                 transition={{
-                  opacity: { duration: 0.75, delay: 0.95, ease: LUXURY_EASE },
+                  opacity: { duration: MOTION_DURATIONS.section, delay: 0.95, ease: LUXURY_EASE },
                   y: {
                     repeat: Infinity,
                     duration: 5.5,
@@ -279,20 +273,17 @@ export const Hero = () => {
           className="hero-scroll-prompt"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.25 }}
+          transition={{ duration: MOTION_DURATIONS.section, delay: 1.25 }}
         >
-          <motion.button
+          <button
             type="button"
             onClick={() => scrollTo('#story')}
             aria-label="Scroll to Our Story"
             className="scroll-btn"
-            whileHover={shouldReduceMotion ? undefined : { y: 3 }}
-            whileTap={{ scale: 0.96 }}
-            transition={HOVER_TRANSITION}
           >
             <span className="scroll-text">DISCOVER OUR STORY</span>
             <ArrowDown size={14} className="scroll-icon" />
-          </motion.button>
+          </button>
         </motion.div>
       </div>
 
@@ -649,14 +640,17 @@ export const Hero = () => {
           align-items: center;
           gap: 0.4rem;
           color: var(--color-antique-gold);
-          transition: color 0.25s ease;
+          transition: color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      transform var(--transition-duration-hover) var(--transition-ease-luxury);
           background: none;
           border: none;
           cursor: pointer;
+          will-change: transform;
         }
 
         .scroll-btn:hover {
           color: var(--color-burgundy);
+          transform: translateY(3px);
         }
 
         .scroll-text {

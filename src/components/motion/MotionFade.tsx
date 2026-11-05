@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { LUXURY_EASE } from '../../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../../utils/motion';
 
 interface MotionFadeProps {
   children: ReactNode;
@@ -14,7 +14,7 @@ interface MotionFadeProps {
 export const MotionFade = ({
   children,
   delay = 0,
-  duration = 0.8,
+  duration = MOTION_DURATIONS.section,
   y = 24,
   className = '',
   amount = 0.15,

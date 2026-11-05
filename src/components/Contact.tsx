@@ -4,7 +4,7 @@ import { InstagramIcon } from './InstagramIcon';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { BRAND_INFO } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 interface ContactProps {
   initialProduct?: string;
@@ -27,7 +27,7 @@ export const Contact = ({ initialProduct }: ContactProps) => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.8, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <div className="section-badge">Orders &amp; Direct Connect</div>
           <h2 className="section-title">
@@ -43,12 +43,12 @@ export const Contact = ({ initialProduct }: ContactProps) => {
         {/* Horizontally Stretched Order Directly Card */}
         <div className="contact-card-wrapper">
           <motion.div
-            className="contact-card contact-primary-card"
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.85, ease: LUXURY_EASE }}
+            transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
           >
+            <div className="contact-card contact-primary-card">
             <div className="card-badge-row">
               <img
                 src="/mr_group_logo.png"
@@ -89,40 +89,35 @@ export const Contact = ({ initialProduct }: ContactProps) => {
               )}
 
               <div className="action-buttons-group">
-                <motion.a
+                <a
                   href={whatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-whatsapp action-btn"
-                  whileHover={shouldReduceMotion ? undefined : { y: -3 }}
-                  whileTap={{ scale: 0.98, y: 0 }}
-                  transition={HOVER_TRANSITION}
                 >
                   <WhatsAppIcon size={18} />
                   <span>Chat on WhatsApp</span>
                   <span className="action-btn-arrow">
                     <ArrowRight size={16} />
                   </span>
-                </motion.a>
+                </a>
 
-                <motion.a
+                <a
                   href={BRAND_INFO.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-instagram action-btn"
-                  whileHover={shouldReduceMotion ? undefined : { y: -3 }}
-                  whileTap={{ scale: 0.98, y: 0 }}
-                  transition={HOVER_TRANSITION}
                 >
                   <InstagramIcon size={18} />
                   <span>Follow on Instagram</span>
                   <span className="action-btn-arrow">
                     <ArrowRight size={16} />
                   </span>
-                </motion.a>
+                </a>
               </div>
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
         </div>
       </div>
 
@@ -160,6 +155,18 @@ export const Contact = ({ initialProduct }: ContactProps) => {
           box-shadow: var(--shadow-card);
           display: flex;
           flex-direction: column;
+          transition: var(--transition-card);
+          will-change: transform, box-shadow;
+          transform: translateZ(0);
+        }
+          will-change: transform, box-shadow;
+          transform: translateZ(0);
+        }
+
+        .contact-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px -10px rgba(56, 37, 29, 0.12);
+          border-color: var(--color-antique-gold);
         }
 
         @media (max-width: 768px) {
@@ -301,15 +308,18 @@ export const Contact = ({ initialProduct }: ContactProps) => {
           padding: 0.85rem 1.6rem;
           font-size: 0.92rem;
           border-radius: var(--radius-sm);
-          /* Harmonized cubic-bezier transitions for background, border, glow, and shadow from centralized config */
           transition: var(--transition-button);
           will-change: transform;
+          cursor: pointer;
         }
 
-        .action-btn:hover,
-        .btn-whatsapp.action-btn:hover,
-        .btn-instagram.action-btn:hover {
-          transform: none;
+        .action-btn:hover {
+          transform: translateY(-2.5px);
+        }
+
+        .action-btn:active {
+          transform: translateY(1px) scale(0.98);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .btn-whatsapp.action-btn:hover {
@@ -333,11 +343,11 @@ export const Contact = ({ initialProduct }: ContactProps) => {
         .action-btn-arrow {
           display: inline-flex;
           align-items: center;
-          transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury);
         }
 
         .action-btn:hover .action-btn-arrow {
-          transform: translateX(3px);
+          transform: translateX(4px);
         }
 
         @media (max-width: 540px) {

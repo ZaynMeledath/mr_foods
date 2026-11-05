@@ -1,7 +1,7 @@
 import { Users, Sparkles } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 export const BrandIntro = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -16,14 +16,10 @@ export const BrandIntro = () => {
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -32 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.9, ease: LUXURY_EASE }}
+            transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
           >
             <div className="intro-media-stack">
-              <motion.div
-                className="intro-main-image-wrap"
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
-                transition={{ duration: 0.5, ease: LUXURY_EASE }}
-              >
+              <div className="intro-main-image-wrap">
                 <img
                   src="/images/unniyappam-signature.webp"
                   alt="Authentic Kerala Unniyappam prepared with rice, ripe bananas and jaggery"
@@ -31,7 +27,7 @@ export const BrandIntro = () => {
                   loading="lazy"
                 />
                 <div className="intro-image-frame-gold" />
-              </motion.div>
+              </div>
 
               {/* Decorative inset card */}
               <motion.div
@@ -39,7 +35,7 @@ export const BrandIntro = () => {
                 initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.75, delay: 0.35, ease: LUXURY_EASE }}
+                transition={{ duration: MOTION_DURATIONS.section, delay: 0.25, ease: LUXURY_EASE }}
               >
                 <div className="inset-quote-icon">
                   <img
@@ -78,7 +74,7 @@ export const BrandIntro = () => {
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 16 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE } },
               }}
               className="section-badge"
             >
@@ -88,7 +84,7 @@ export const BrandIntro = () => {
             <motion.h2
               variants={{
                 hidden: { opacity: 0, y: 22 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               className="section-title intro-title"
             >
@@ -99,7 +95,7 @@ export const BrandIntro = () => {
             <motion.div
               variants={{
                 hidden: { opacity: 0, scaleX: 0.7 },
-                visible: { opacity: 1, scaleX: 1, transition: { duration: 0.7, ease: LUXURY_EASE } },
+                visible: { opacity: 1, scaleX: 1, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               style={{ transformOrigin: 'left center' }}
             >
@@ -109,7 +105,7 @@ export const BrandIntro = () => {
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 18 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.section, ease: LUXURY_EASE } },
               }}
               className="intro-paragraphs"
             >
@@ -138,26 +134,18 @@ export const BrandIntro = () => {
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 16 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: LUXURY_EASE } },
+                visible: { opacity: 1, y: 0, transition: { duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE } },
               }}
               className="intro-features"
             >
-              <motion.div
-                className="intro-feature-pill"
-                whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-antique-gold)' }}
-                transition={HOVER_TRANSITION}
-              >
+              <div className="intro-feature-pill">
                 <Users size={16} className="text-gold" />
                 <span>Family-Owned &amp; Operated</span>
-              </motion.div>
-              <motion.div
-                className="intro-feature-pill"
-                whileHover={shouldReduceMotion ? undefined : { y: -3, borderColor: 'var(--color-antique-gold)' }}
-                transition={HOVER_TRANSITION}
-              >
+              </div>
+              <div className="intro-feature-pill">
                 <Sparkles size={16} className="text-gold" />
                 <span>Authentic Culinary Roots</span>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -202,6 +190,14 @@ export const BrandIntro = () => {
           padding: 10px;
           background-color: #fff;
           box-shadow: var(--shadow-card);
+          transition: var(--transition-card);
+          will-change: transform;
+          transform: translateZ(0);
+        }
+
+        .intro-main-image-wrap:hover {
+          transform: scale(1.02);
+          box-shadow: 0 16px 36px -8px rgba(56, 37, 29, 0.16);
         }
 
         .intro-main-image {
@@ -341,7 +337,16 @@ export const BrandIntro = () => {
           font-weight: 600;
           color: var(--color-burgundy);
           letter-spacing: 0.04em;
-          transition: border-color 0.25s ease;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury),
+                      border-color var(--transition-duration-hover) var(--transition-ease-luxury),
+                      box-shadow var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .intro-feature-pill:hover {
+          transform: translateY(-3px);
+          border-color: var(--color-antique-gold);
+          box-shadow: 0 6px 18px rgba(182, 154, 98, 0.18);
         }
       `}</style>
     </section>

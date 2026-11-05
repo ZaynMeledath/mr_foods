@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { GALLERY_ITEMS } from '../data/content';
 import type { GalleryItem } from '../data/content';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { LUXURY_EASE, HOVER_TRANSITION, CARD_HOVER_TRANSITION } from '../utils/motion';
+import { LUXURY_EASE, MOTION_DURATIONS } from '../utils/motion';
 
 export const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'delicacies' | 'ingredients' | 'heritage'>('all');
@@ -25,7 +25,7 @@ export const Gallery = () => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.8, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <div className="section-badge">Moments &amp; Textures</div>
           <h2 className="section-title">
@@ -48,17 +48,14 @@ export const Gallery = () => {
                 { id: 'heritage', label: 'Kerala Heritage' },
               ] as const
             ).map((tab) => (
-              <motion.button
+              <button
                 key={tab.id}
                 type="button"
                 className={`filter-btn ${activeFilter === tab.id ? 'active' : ''}`}
-                whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                transition={HOVER_TRANSITION}
                 onClick={() => setActiveFilter(tab.id)}
               >
                 {tab.label}
-              </motion.button>
+              </button>
             ))}
           </div>
         </motion.div>
@@ -70,7 +67,7 @@ export const Gallery = () => {
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.7, ease: LUXURY_EASE }}
+          transition={{ duration: MOTION_DURATIONS.section, ease: LUXURY_EASE }}
         >
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item, index) => (
@@ -83,31 +80,21 @@ export const Gallery = () => {
                 exit={
                   shouldReduceMotion
                     ? { opacity: 0 }
-                    : { opacity: 0, scale: 0.92, y: 10, transition: { duration: 0.2 } }
+                    : { opacity: 0, scale: 0.92, y: 10, transition: { duration: MOTION_DURATIONS.instant } }
                 }
                 transition={{
-                  duration: 0.45,
+                  duration: MOTION_DURATIONS.fade,
                   delay: shouldReduceMotion ? 0 : Math.min(index * 0.04, 0.16),
                   ease: LUXURY_EASE,
                 }}
-                whileHover={
-                  shouldReduceMotion
-                    ? undefined
-                    : {
-                        y: -5,
-                        transition: CARD_HOVER_TRANSITION,
-                      }
-                }
                 onClick={() => setActiveLightboxItem(item)}
               >
                 <div className="gallery-card-inner">
-                  <motion.img
+                  <img
                     src={item.image}
                     alt={item.title}
                     className="gallery-image"
                     loading="lazy"
-                    whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
-                    transition={{ duration: 0.65, ease: LUXURY_EASE }}
                   />
                   <div className="gallery-hover-overlay">
                     <div className="gallery-hover-content">
@@ -131,7 +118,7 @@ export const Gallery = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.28 }}
+            transition={{ duration: MOTION_DURATIONS.micro }}
             onClick={() => setActiveLightboxItem(null)}
             role="dialog"
             aria-modal="true"
@@ -141,20 +128,17 @@ export const Gallery = () => {
               initial={{ opacity: 0, scale: 0.95, y: 14 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              transition={{ duration: 0.35, ease: LUXURY_EASE }}
+              transition={{ duration: MOTION_DURATIONS.fade, ease: LUXURY_EASE }}
               onClick={(e) => e.stopPropagation()}
             >
-              <motion.button
+              <button
                 type="button"
                 className="lightbox-close-btn"
-                whileHover={{ rotate: 90, scale: 1.08 }}
-                whileTap={{ scale: 0.94 }}
-                transition={HOVER_TRANSITION}
                 onClick={() => setActiveLightboxItem(null)}
                 aria-label="Close photo preview"
               >
                 <X size={22} />
-              </motion.button>
+              </button>
 
               <img
                 src={activeLightboxItem.image}
@@ -199,16 +183,16 @@ export const Gallery = () => {
         }
 
         .filter-btn {
+          padding: 0.55rem 1.35rem;
           font-family: var(--font-sans);
-          font-size: 0.8rem;
+          font-size: 0.82rem;
           font-weight: 600;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          padding: 0.5rem 1.15rem;
+          border-radius: var(--radius-full);
+          border: 1px solid var(--color-border);
           background-color: var(--color-cream-light);
           color: var(--color-text-muted);
-          border: 1px solid var(--color-border);
-          border-radius: var(--radius-full);
           cursor: pointer;
           transition: var(--transition-button);
           will-change: transform;
@@ -217,6 +201,12 @@ export const Gallery = () => {
         .filter-btn:hover {
           color: var(--color-burgundy);
           border-color: var(--color-antique-gold);
+          transform: translateY(-2px);
+        }
+
+        .filter-btn:active {
+          transform: translateY(0) scale(0.97);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .filter-btn.active {
@@ -257,6 +247,15 @@ export const Gallery = () => {
           border: 1px solid rgba(182, 154, 98, 0.25);
           border-radius: var(--radius-md);
           box-shadow: var(--shadow-subtle);
+          transition: var(--transition-card);
+          will-change: transform, box-shadow;
+          transform: translateZ(0);
+        }
+
+        .gallery-grid-item:hover .gallery-card-inner {
+          transform: translateY(-6px);
+          box-shadow: 0 16px 36px -8px rgba(56, 37, 29, 0.18);
+          border-color: var(--color-antique-gold);
         }
 
         .gallery-image {
@@ -264,6 +263,12 @@ export const Gallery = () => {
           height: 100%;
           object-fit: cover;
           display: block;
+          transition: transform var(--transition-duration-card) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .gallery-grid-item:hover .gallery-image {
+          transform: scale(1.08);
         }
 
         .gallery-hover-overlay {
@@ -274,7 +279,8 @@ export const Gallery = () => {
           display: flex;
           align-items: flex-end;
           padding: 1.5rem 1.25rem;
-          transition: opacity 0.35s ease;
+          transition: opacity var(--transition-duration-micro) var(--transition-ease-luxury);
+          pointer-events: none;
         }
 
         .gallery-grid-item:hover .gallery-hover-overlay {
@@ -284,7 +290,7 @@ export const Gallery = () => {
         .gallery-hover-content {
           color: #fff;
           transform: translateY(10px);
-          transition: transform 0.35s ease;
+          transition: transform var(--transition-duration-micro) var(--transition-ease-luxury);
         }
 
         .gallery-grid-item:hover .gallery-hover-content {
@@ -351,6 +357,19 @@ export const Gallery = () => {
           z-index: 5;
           border: none;
           cursor: pointer;
+          transition: transform var(--transition-duration-hover) var(--transition-ease-luxury),
+                      background-color var(--transition-duration-hover) var(--transition-ease-luxury);
+          will-change: transform;
+        }
+
+        .lightbox-close-btn:hover {
+          transform: rotate(90deg) scale(1.08);
+          background-color: var(--color-burgundy);
+        }
+
+        .lightbox-close-btn:active {
+          transform: rotate(90deg) scale(0.96);
+          transition-duration: var(--transition-duration-tap);
         }
 
         .lightbox-img {
